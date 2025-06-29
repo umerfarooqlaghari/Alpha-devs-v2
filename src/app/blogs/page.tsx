@@ -36,7 +36,7 @@ export default function Blogs() {
             <h2 className="text-4xl font-bold text-black">Coming Soon!</h2>
             
             <p className="text-xl text-gray-700 leading-relaxed max-w-2xl mx-auto">
-              We're working hard to bring you valuable content about software development, 
+              We&apos;re working hard to bring you valuable content about software development, 
               AI innovations, and industry best practices. Our blog will feature:
             </p>
 

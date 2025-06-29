@@ -10,7 +10,7 @@ export default function AdminDashboard() {
   const [selectedTimeframe, setSelectedTimeframe] = useState('7d');
 
   // Mock data - in real app, this would come from API
-  const [dashboardData, setDashboardData] = useState({
+  const [dashboardData] = useState({
     totalUsers: 1247,
     activeUsers: 892,
     totalRevenue: 45670,

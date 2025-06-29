@@ -156,7 +156,7 @@ export default function About() {
                 <span className="text-white text-2xl">🚀</span>
               </div>
               <h3 className="text-xl font-semibold text-black mb-4">Growth</h3>
-              <p className="text-gray-600">We're committed to continuous learning and helping our clients achieve sustainable growth.</p>
+              <p className="text-gray-600">We&apos;re committed to continuous learning and helping our clients achieve sustainable growth.</p>
             </div>
           </div>
         </div>
@@ -261,7 +261,7 @@ export default function About() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl font-bold mb-6">Ready to Join Our Success Stories?</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Let's discuss how we can help transform your business with innovative software solutions.
+            Let&apos;s discuss how we can help transform your business with innovative software solutions.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a

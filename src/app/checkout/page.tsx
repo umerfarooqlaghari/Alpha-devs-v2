@@ -39,14 +39,9 @@ export default function Checkout() {
     setIsProcessing(true);
 
     try {
-      // Simulate payment processing
       await new Promise(resolve => setTimeout(resolve, 3000));
       
-      addNotification({
-        type: 'success',
-        message: 'Payment processed successfully! Welcome to Alpha-analytics.',
-        duration: 5000
-      });
+       addNotification('success', 'Payment Successful', 'Payment successful!', 3000);
 
       // Redirect to success page or dashboard
       setTimeout(() => {
@@ -54,11 +49,8 @@ export default function Checkout() {
       }, 2000);
 
     } catch (error) {
-      addNotification({
-        type: 'error',
-        message: 'Payment failed. Please try again.',
-        duration: 5000
-      });
+      console.log(error)
+      addNotification('error', 'Payment Failed', 'Payment failed. Please try again.', 5000);
     } finally {
       setIsProcessing(false);
     }
@@ -79,7 +71,7 @@ export default function Checkout() {
           <div className="text-center">
             <h1 className="text-4xl font-bold text-black mb-4">Complete Your Purchase</h1>
             <p className="text-xl text-gray-700">
-              You're just one step away from accessing Alpha-analytics
+              You&apos;re just one step away from accessing Alpha-analytics
             </p>
           </div>
         </div>

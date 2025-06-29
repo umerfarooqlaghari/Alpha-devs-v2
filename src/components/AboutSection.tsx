@@ -24,7 +24,7 @@ const AboutSection = () => {
                 <p>
                   Our team of expert developers, designers, and consultants work
                   collaboratively to deliver exceptional results that exceed our
-                  clients' expectations. From web development to AI solutions,
+                  clients&apos; expectations. From web development to AI solutions,
                   we cover the full spectrum of modern software development.
                 </p>
               </div>

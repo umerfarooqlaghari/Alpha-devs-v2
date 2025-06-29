@@ -19,9 +19,7 @@ export default function AIVoiceCloner() {
     showInfo('Sample Player', 'Opening voice sample library...');
   };
 
-  const handleStartTrial = () => {
-    showSuccess('Free Trial Activated!', 'Your 7-day free trial has been activated. Check your email for access details.');
-  };
+
 
   const handleContactSales = () => {
     showInfo('Contact Sales', 'Redirecting to our sales team contact form...');
@@ -81,7 +79,7 @@ export default function AIVoiceCloner() {
                 <VoiceIcon size={32} className="text-white" />
               </div>
               <h3 className="text-2xl font-bold text-white mb-6">Natural Sound</h3>
-              <p className="text-gray-300 text-lg leading-relaxed">Generate speech that's virtually indistinguishable from the original voice.</p>
+              <p className="text-gray-300 text-lg leading-relaxed">Generate speech that&apos;s virtually indistinguishable from the original voice.</p>
             </div>
 
             <div className="card-sleek p-10 hover-lift">

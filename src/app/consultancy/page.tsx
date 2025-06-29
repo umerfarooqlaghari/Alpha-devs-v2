@@ -1,6 +1,5 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import Link from 'next/link';
 
 export default function Consultancy() {
   return (
@@ -45,7 +44,7 @@ export default function Consultancy() {
             <h2 className="text-3xl font-bold text-black mb-8">Why Choose Alpha-devs for Software Consultancy?</h2>
             
             <p className="text-gray-700 leading-relaxed mb-6">
-              In today's rapidly evolving digital landscape, making the right technology decisions can be the difference 
+              In today&apos;s rapidly evolving digital landscape, making the right technology decisions can be the difference 
               between business success and stagnation. At Alpha-devs, we bring years of experience and deep technical 
               expertise to help you navigate complex software challenges and make informed decisions that drive growth.
             </p>
@@ -53,7 +52,7 @@ export default function Consultancy() {
             <p className="text-gray-700 leading-relaxed mb-8">
               Our consultancy approach is built on three core principles: <strong>understanding your business</strong>, 
               <strong>leveraging cutting-edge technology</strong>, and <strong>delivering measurable results</strong>. 
-              We don't just provide recommendations – we partner with you to implement solutions that work.
+              We don&apos;t just provide recommendations – we partner with you to implement solutions that work.
             </p>
 
             <h3 className="text-2xl font-bold text-black mb-6">Our Consultancy Process</h3>
@@ -86,7 +85,7 @@ export default function Consultancy() {
               <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
                 <h4 className="text-xl font-semibold text-black mb-4">4. Ongoing Support</h4>
                 <p className="text-gray-600">
-                  Our relationship doesn't end at implementation. We provide ongoing monitoring, optimization, 
+                  Our relationship doesn&apos;t end at implementation. We provide ongoing monitoring, optimization, 
                   and strategic advice to help you adapt to changing business needs.
                 </p>
               </div>
@@ -122,7 +121,7 @@ export default function Consultancy() {
               <div>
                 <h4 className="text-xl font-semibold text-black mb-3">Security & Compliance</h4>
                 <p className="text-gray-700">
-                  Security is paramount in today's digital world. We conduct security audits and implement 
+                  Security is paramount in today&apos;s digital world. We conduct security audits and implement 
                   robust security measures to protect your data and ensure compliance with industry standards.
                 </p>
               </div>
@@ -140,9 +139,9 @@ export default function Consultancy() {
             
             <div className="bg-gray-50 p-8 rounded-lg border border-gray-200 mb-8">
               <blockquote className="text-gray-700 italic mb-4">
-                "Alpha-devs transformed our legacy system into a modern, scalable platform. Their consultancy 
-                helped us reduce operational costs by 40% while improving performance by 300%. The team's 
-                expertise and guidance were invaluable throughout the entire process."
+                &quot;Alpha-devs transformed our legacy system into a modern, scalable platform. Their consultancy 
+                helped us reduce operational costs by 40% while improving performance by 300%. The team&apos;s 
+                expertise and guidance were invaluable throughout the entire process.&quot;
               </blockquote>
               <cite className="text-black font-semibold">— Sarah Johnson, CTO at TechStart Inc.</cite>
             </div>
@@ -177,12 +176,12 @@ export default function Consultancy() {
             <p className="text-gray-700 leading-relaxed mb-6">
               Ready to take your software development to the next level? Our consultancy process begins with 
               a comprehensive assessment of your current situation and goals. During our initial consultation, 
-              we'll discuss your challenges, objectives, and how our expertise can help you achieve success.
+              we&apos;ll discuss your challenges, objectives, and how our expertise can help you achieve success.
             </p>
 
             <p className="text-gray-700 leading-relaxed mb-8">
-              Whether you're planning a new project, optimizing existing systems, or need strategic guidance 
-              on technology decisions, we're here to help. Book a consultation today and discover how 
+              Whether you are planning a new project, optimizing existing systems, or need strategic guidance 
+              on technology decisions, we are here to help. Book a consultation today and discover how 
               Alpha-devs can accelerate your business growth through expert software consultancy.
             </p>
           </div>
@@ -194,7 +193,7 @@ export default function Consultancy() {
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-16 text-center">
           <h2 className="text-4xl font-bold mb-6">Ready to Transform Your Business?</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Let's discuss your challenges and explore how our consultancy services can help you achieve your goals.
+            Let us discuss your challenges and explore how our consultancy services can help you achieve your goals.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
