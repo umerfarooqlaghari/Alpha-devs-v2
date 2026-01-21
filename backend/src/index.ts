@@ -19,8 +19,24 @@ const port = process.env.PORT || 3001;
 // However, the original file had it. I will leave it but the auth controller uses the one from lib.
 // PrismaClient is initialized in lib/prisma.ts
 
+// CORS configuration - allow multiple origins for development and production
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://alpha-devs-frontend.vercel.app',
+  process.env.FRONTEND_URL
+].filter(Boolean) as string[];
+
 app.use(cors({
-  origin: 'http://localhost:3000', // Frontend URL
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(null, true); // Allow all origins for now, can be restricted later
+    }
+  },
   credentials: true,
 }));
 app.use(express.json());
