@@ -2,6 +2,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 export default function Hero() {
     const [media, setMedia] = useState<{ video?: string, image?: string }>({});
@@ -52,15 +53,17 @@ export default function Hero() {
 
             {/* Content */}
             <div className="relative z-10 max-w-5xl mx-auto px-6 text-center text-white">
-                <h1 className="text-5xl md:text-7xl font-bold leading-tight tracking-tight mb-6 text-balance text-shadow-sm">
-                    100% Curbside Recyclable, sealable, printable & high barrier paper
+                <h1 className="text-5xl md:text-7xl font-black leading-[0.9] tracking-tighter mb-6 text-balance text-shadow-sm uppercase">
+                    Revolutionizing Enterprise with Intelligent Software
                 </h1>
-                <p className="text-lg md:text-xl font-medium max-w-2xl mx-auto opacity-90 mb-8">
-                    Sustainable packaging solutions for a circular economy.
+                <p className="text-lg md:text-xl font-medium max-w-2xl mx-auto opacity-90 mb-8 italic">
+                    Engineering high-performance AI, ERP, and custom digital ecosystems for global leaders.
                 </p>
-                <button className="bg-light-blue text-black px-8 py-3.5 rounded-full text-base font-bold transition-all duration-300 transform hover:scale-105 hover:bg-black hover:text-white">
-                    Explore Our Technology
-                </button>
+                <Link href="/services">
+                    <button className="bg-white text-black px-10 py-4 rounded-full text-sm font-black uppercase tracking-widest transition-all duration-300 transform hover:scale-105 hover:bg-black hover:text-white shadow-xl shadow-white/10">
+                        Explore Our Solutions
+                    </button>
+                </Link>
             </div>
         </section>
     );

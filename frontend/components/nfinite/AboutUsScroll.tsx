@@ -187,23 +187,19 @@ export default function AboutUsScroll() {
                     {sections.map((section, idx) => (
                         <div
                             key={idx}
-                            className={`absolute transition-all duration-1000 ease-in-out transform w-full max-w-2xl px-6 ${activePhase === idx
+                            className={`absolute inset-x-0 transition-all duration-1000 ease-in-out transform w-full md:max-w-2xl px-6 ${activePhase === idx
                                 ? "opacity-100 translate-y-0 scale-100 blur-0"
                                 : "opacity-0 translate-y-20 scale-95 blur-lg"
-                                } ${section.align === "left" ? "left-0 text-left" : "right-0 text-right"
-                                }`}
-                            style={{
-                                left: section.align === "left" ? "0" : "auto",
-                                right: section.align === "right" ? "0" : "auto"
-                            }}
+                                } ${section.align === "left" ? "md:left-0 md:right-auto md:text-left" : "md:right-0 md:left-auto md:text-right"
+                                } text-center md:text-inherit`}
                         >
-                            <span className="text-light-blue text-sm font-bold tracking-[0.4em] uppercase mb-4 block">
+                            <span className="text-light-blue text-xs md:text-sm font-bold tracking-[0.4em] uppercase mb-4 block">
                                 {section.subtitle}
                             </span>
-                            <h2 className="text-5xl md:text-7xl font-bold text-white mb-6 uppercase tracking-tight">
+                            <h2 className="text-3xl md:text-7xl font-bold text-white mb-6 uppercase tracking-tight">
                                 {section.title}
                             </h2>
-                            <p className="text-xl text-gray-400 leading-relaxed">
+                            <p className="text-lg md:text-xl text-gray-400 leading-relaxed max-w-lg mx-auto md:mx-0">
                                 {section.description}
                             </p>
                         </div>
@@ -211,7 +207,7 @@ export default function AboutUsScroll() {
                 </div>
 
                 {/* Vertical Progress Bar */}
-                <div className="absolute right-12 top-1/2 -translate-y-1/2 flex flex-col gap-4 z-20">
+                <div className="absolute right-6 md:right-12 top-1/2 -translate-y-1/2 hidden md:flex flex-col gap-4 z-20">
                     {sections.map((_, idx) => (
                         <div
                             key={idx}

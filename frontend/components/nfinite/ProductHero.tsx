@@ -45,7 +45,7 @@ export default function ProductHero({ onCategorySelect }: ProductHeroProps) {
                         <span className="text-xs font-bold tracking-[0.2em] uppercase text-gray-400">Innovation</span>
                     </div>
 
-                    <h1 className="text-7xl md:text-8xl font-bold text-[#2D312E] mb-6 tracking-tighter leading-[0.9]">
+                    <h1 className="text-5xl md:text-8xl font-bold text-[#2D312E] mb-6 tracking-tighter leading-[0.9]">
                         Alpha<br />Solutions
                     </h1>
 
@@ -56,7 +56,7 @@ export default function ProductHero({ onCategorySelect }: ProductHeroProps) {
                     <div className="flex flex-col gap-4 mb-12">
                         <label className="text-xs font-bold uppercase tracking-widest text-gray-400">Scalability</label>
                         <div className="flex gap-4">
-                             <button
+                            <button
                                 onClick={() => setScalability("Basic")}
                                 className="flex items-center gap-2 cursor-pointer group"
                             >
@@ -100,7 +100,7 @@ export default function ProductHero({ onCategorySelect }: ProductHeroProps) {
 
                         {/* Featured Product Visualization (Representational) */}
                         <div className="relative z-10 w-full h-full flex items-center justify-center">
-                            <div className="relative w-4/5 h-4/5 bg-gradient-to-br from-[#4A5D4E] to-[#2D312E] rounded-2xl shadow-2xl flex flex-col p-8 overflow-hidden transform -rotate-3 hover:rotate-0 transition-transform duration-700">
+                            <div className="relative w-full md:w-4/5 h-full md:h-4/5 bg-gradient-to-br from-[#4A5D4E] to-[#2D312E] rounded-2xl shadow-2xl flex flex-col p-6 md:p-8 overflow-hidden transform -rotate-3 hover:rotate-0 transition-transform duration-700">
                                 <div className="flex justify-between items-start mb-12">
                                     <div className="w-12 h-12 bg-white/10 rounded-lg backdrop-blur-md flex items-center justify-center">
                                         <Plus className="text-white w-6 h-6" />
@@ -108,8 +108,8 @@ export default function ProductHero({ onCategorySelect }: ProductHeroProps) {
                                     <span className="text-white/40 text-xs font-mono uppercase tracking-widest">v2.0.4</span>
                                 </div>
                                 <div className="mt-auto">
-                                    <div className="text-white/20 text-4xl font-bold uppercase tracking-tightest leading-none mb-2">Alpha</div>
-                                    <div className="text-white text-5xl font-bold tracking-tight">Intelligence</div>
+                                    <div className="text-white/20 text-2xl md:text-4xl font-bold uppercase tracking-tightest leading-none mb-2">Alpha</div>
+                                    <div className="text-white text-3xl md:text-5xl font-bold tracking-tight">Intelligence</div>
                                 </div>
                                 <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16 blur-3xl"></div>
                             </div>
