@@ -165,16 +165,63 @@ model CloudinaryImage {
 
 // Service model for dynamic services carousel
 model Service {
-  id          String   @id @default(cuid())
-  title       String
-  description String?
-  keywords    String[]
-  videoUrl    String?
-  order       Int      @default(0)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id              String   @id @default(cuid())
+  title           String
+  slug            String   @default("")
+  description     String?  @db.Text
+  keywords        String[]
+  
+  // Hero Section (Landing Page)
+  heroTitle       String?
+  heroSubtitle    String?
+  heroDescription String?  @db.Text
+  
+  // Features List
+  features        String[]
+  
+  videoUrl        String?
+  imageUrl        String?
+  imagePublicId   String?
+  
+  // Relations
+  infoCards       ServiceInfoCard[]
+  contentBlocks   ServiceContentBlock[]
+  
+  order           Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 
   @@map("services")
+}
+
+model ServiceInfoCard {
+  id          String   @id @default(cuid())
+  serviceId   String
+  title       String
+  description String?  @db.Text
+  tag         String?  // e.g. "Instant", "Scalable"
+  imageUrl    String?
+  publicId    String?
+  order       Int      @default(0)
+  
+  service     Service  @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+
+  @@map("service_info_cards")
+}
+
+model ServiceContentBlock {
+  id          String   @id @default(cuid())
+  serviceId   String
+  type        String   @default("text") // "text", "image", "heading"
+  content     String   @db.Text
+  style       Json?    // { fontSize, bold, color, align }
+  imageUrl    String?
+  publicId    String?
+  order       Int      @default(0)
+
+  service     Service  @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+
+  @@map("service_content_blocks")
 }
 
 // Testimonials

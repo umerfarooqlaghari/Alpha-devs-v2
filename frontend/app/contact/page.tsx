@@ -40,9 +40,9 @@ export default function ContactPage() {
                         <p className="text-dark-navy/50 mb-12 max-w-lg mx-auto">
                             Check our documentation or reach out to our dedicated support team for technical assistance.
                         </p>
-                        <button className="px-10 py-4 border-2 border-white/10 rounded-2xl text-white font-bold hover:bg-white hover:text-black hover:border-white transition-all">
-                            VISIT SUPPORT CENTER
-                        </button>
+                        <a href="mailto:support@alpha-devs.cloud" className="px-10 py-4 border-2 border-white/10 rounded-2xl text-white font-bold hover:bg-white hover:text-black hover:border-white transition-all inline-block">
+                            EMAIL US DIRECTLY
+                        </a>
                     </div>
                 </section>
             </article>

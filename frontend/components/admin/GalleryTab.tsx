@@ -42,7 +42,7 @@ export default function GalleryTab() {
         setIsUploading(true);
         try {
             // 1. Get Signature
-            const sigRes = await fetch(`${API_URL}/api/gallery/signature`);
+            const sigRes = await fetch(`${API_URL}/api/gallery/signature?folder=alpha-devs-gallery`);
             const { signature, timestamp, cloudName, apiKey } = await sigRes.json();
 
             // 2. Upload to Cloudinary

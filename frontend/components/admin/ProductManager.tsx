@@ -106,7 +106,7 @@ export default function ProductManager() {
 
         setUploading(type);
         try {
-            const sigRes = await fetch(`${API_URL}/api/gallery/signature`, {
+            const sigRes = await fetch(`${API_URL}/api/gallery/signature?folder=alpha-devs-products`, {
                 credentials: 'include'
             });
             const { signature, timestamp, cloudName, apiKey } = await sigRes.json();
@@ -309,6 +309,21 @@ export default function ProductManager() {
                                     <div>
                                         <label className="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Brief Summary</label>
                                         <textarea value={currentProduct.description} onChange={(e) => setCurrentProduct({ ...currentProduct, description: e.target.value })} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none text-sm min-h-[140px]" />
+                                    </div>
+                                    <div>
+                                        <label className="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Product Card Image</label>
+                                        <div className="relative h-36 rounded-2xl bg-gray-100 border-2 border-dashed border-gray-200 flex items-center justify-center overflow-hidden hover:border-indigo-400 transition-colors group">
+                                            {currentProduct.imageUrl ? (
+                                                <img src={currentProduct.imageUrl} className="w-full h-full object-cover" />
+                                            ) : (
+                                                <div className="text-center">
+                                                    {uploading === 'image' ? <Loader2 className="animate-spin w-8 h-8 text-indigo-500 mx-auto" /> : <Upload className="w-8 h-8 text-gray-400 mx-auto" />}
+                                                    <span className="text-[10px] font-bold text-gray-400 uppercase mt-2 block">Upload Card Image</span>
+                                                </div>
+                                            )}
+                                            <input type="file" accept="image/*" className="absolute inset-0 opacity-0 cursor-pointer" onChange={(e) => handleFileUpload(e, 'image')} />
+                                        </div>
+                                        <p className="text-[10px] text-gray-400 mt-2">Used on the Products page cards and preview tiles.</p>
                                     </div>
                                 </div>
                             </div>

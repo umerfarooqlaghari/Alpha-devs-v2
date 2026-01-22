@@ -2,6 +2,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 export default function ServicesHero() {
     const [media, setMedia] = useState<{ url?: string }>({});
@@ -59,12 +60,16 @@ export default function ServicesHero() {
                     </h1>
 
                     <div className="flex flex-wrap gap-4">
-                        <button className="bg-light-blue text-black px-8 py-4 rounded-full text-base font-bold transition-all duration-300 transform hover:scale-105 hover:bg-white">
-                            ABOUT US
-                        </button>
-                        <button className="border-2 border-white/30 text-white backdrop-blur-sm px-8 py-4 rounded-full text-base font-bold transition-all duration-300 transform hover:scale-105 hover:bg-white hover:text-black hover:border-white">
-                            PROJECTS
-                        </button>
+                        <Link href="/about">
+                            <button className="bg-light-blue text-black px-8 py-4 rounded-full text-base font-bold transition-all duration-300 transform hover:scale-105 hover:bg-white">
+                                ABOUT US
+                            </button>
+                        </Link>
+                        <Link href="/contact?type=booking">
+                            <button className="border-2 border-white/30 text-white backdrop-blur-sm px-8 py-4 rounded-full text-base font-bold transition-all duration-300 transform hover:scale-105 hover:bg-white hover:text-black hover:border-white">
+                                GET A DEMO
+                            </button>
+                        </Link>
                     </div>
                 </div>
 

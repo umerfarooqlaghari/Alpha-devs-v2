@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
     return (
@@ -27,9 +28,50 @@ export default function Footer() {
                 {/* Bottom Links */}
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-12 text-sm text-gray-900/80">
                     <div className="col-span-1 md:col-span-2">
-                        <Link href="/" className="text-3xl font-bold mb-4 block text-black tracking-tighter">
-                            Alpha Devs
+                        <Link href="/" className="flex items-center gap-6 group mb-8">
+                            <div className="relative w-20 h-20 md:w-24 md:h-24 flex-shrink-0 transition-transform duration-700 group-hover:rotate-[360deg]">
+                                <Image
+                                    src="/favicon.png"
+                                    alt="Alpha"
+                                    fill
+                                    className="object-contain invert"
+                                    priority
+                                />
+                            </div>
+                            <div className={`logo-container font-black tracking-tighter text-3xl md:text-5xl uppercase text-black flex flex-col items-start leading-[0.8]`}>
+                                <div className="flex">
+                                    {"Alpha".split("").map((char, i, arr) => (
+                                        <span
+                                            key={i}
+                                            className="logo-letter animate-logo-wave inline-block"
+                                            style={{
+                                                animationDelay: `${(arr.length - i - 1) * 0.05}s`,
+                                                whiteSpace: char === " " ? "pre" : "normal"
+                                            }}
+                                        >
+                                            {char}
+                                        </span>
+                                    ))}
+                                </div>
+                                <div className="flex mt-2">
+                                    {"Development".split("").map((char, i, arr) => (
+                                        <span
+                                            key={i}
+                                            className="logo-letter animate-logo-wave inline-block"
+                                            style={{
+                                                animationDelay: `${(arr.length - i - 1 + 5) * 0.05}s`,
+                                                whiteSpace: char === " " ? "pre" : "normal"
+                                            }}
+                                        >
+                                            {char}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
                         </Link>
+                        <p className="text-lg max-w-xs text-gray-900/60 leading-relaxed">
+                            Empowering the next generation of enterprises with AI and Computer Vision.
+                        </p>
                     </div>
 
                     <div>
@@ -42,9 +84,8 @@ export default function Footer() {
                     <div>
                         <h4 className="font-bold mb-4 text-black">Social</h4>
                         <div className="space-y-2 flex flex-col">
-                            <Link href="#" className="hover:text-black transition-colors">Upwork</Link>
-                            <Link href="#" className="hover:text-black transition-colors">LinkedIn</Link>
-                            <Link href="#" className="hover:text-black transition-colors">Instagram</Link>
+                            <Link href="https://upwork.com/freelancers/~015bb35b01027c8cb7" className="hover:text-black transition-colors">Upwork</Link>
+                            <Link href="https://www.linkedin.com/company/106025983" className="hover:text-black transition-colors">LinkedIn</Link>
                         </div>
                     </div>
                 </div>
@@ -52,8 +93,6 @@ export default function Footer() {
                 <div className="mt-24 flex flex-col md:flex-row justify-between items-center text-xs text-gray-900/50 gap-4">
                     <p>© {new Date().getFullYear()} Alpha Devs. All rights reserved.</p>
                     <div className="flex gap-6">
-                        <Link href="#" className="hover:text-black transition-colors">Privacy Policy</Link>
-                        <Link href="#" className="hover:text-black transition-colors">Terms of Service</Link>
                         <span className="opacity-50">Made by Numbered</span>
                     </div>
                 </div>

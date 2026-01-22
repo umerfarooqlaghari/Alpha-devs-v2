@@ -1,6 +1,5 @@
-"use client";
-
 import React from 'react';
+import Link from 'next/link';
 
 const projects = [
     { title: "AI Dashboard", category: "App Dev", img: "https://images.unsplash.com/photo-1551288049-bbda483387a5?auto=format&fit=crop&w=400&q=80" },
@@ -18,18 +17,18 @@ export default function ProjectsSection() {
                     <div className="flex-1 grid grid-cols-2 gap-4">
                         <div className="space-y-4">
                             <div className="rounded-2xl overflow-hidden aspect-[4/5] bg-charcoal group">
-                                <img src={projects[0].img} alt={projects[0].title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                                <img src="/cv.jpg" alt={projects[0].title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                             </div>
                             <div className="rounded-2xl overflow-hidden aspect-square bg-charcoal group">
-                                <img src={projects[1].img} alt={projects[1].title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                                <img src="/cv4.jpg" alt={projects[1].title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                             </div>
                         </div>
                         <div className="space-y-4 pt-12">
                             <div className="rounded-2xl overflow-hidden aspect-square bg-charcoal group">
-                                <img src={projects[2].img} alt={projects[2].title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                                <img src="/cv2.jpg" alt={projects[2].title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                             </div>
                             <div className="rounded-2xl overflow-hidden aspect-[4/5] bg-charcoal group">
-                                <img src={projects[3].img} alt={projects[3].title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                                <img src="/cv3.jpg" alt={projects[3].title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                             </div>
                         </div>
                     </div>
@@ -50,9 +49,11 @@ export default function ProjectsSection() {
                             <p className="text-dark-navy/50 text-sm leading-relaxed mb-8">
                                 Explore how we&apos;ve transformed complex business challenges into elegant, powerful digital experiences using AI and modern web tech.
                             </p>
-                            <button className="px-10 py-3 border border-white/20 rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-light-blue hover:border-light-blue hover:text-black transition-all">
-                                PROJECTS
-                            </button>
+                            <Link href="/contact?type=booking">
+                                <button className="px-10 py-3 border border-white/20 rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-light-blue hover:border-light-blue hover:text-black transition-all">
+                                    Get a demo
+                                </button>
+                            </Link>
                         </div>
                     </div>
                 </div>

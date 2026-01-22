@@ -56,6 +56,15 @@ export default function ProductHero({ onCategorySelect }: ProductHeroProps) {
                     <div className="flex flex-col gap-4 mb-12">
                         <label className="text-xs font-bold uppercase tracking-widest text-gray-400">Scalability</label>
                         <div className="flex gap-4">
+                             <button
+                                onClick={() => setScalability("Basic")}
+                                className="flex items-center gap-2 cursor-pointer group"
+                            >
+                                <div className={`w-4 h-4 rounded-full border transition-colors flex items-center justify-center ${scalability === "Basic" ? "border-[#2D312E]" : "border-gray-400 group-hover:border-[#2D312E]"}`}>
+                                    {scalability === "Basic" && <div className="w-2 h-2 rounded-full bg-[#2D312E]"></div>}
+                                </div>
+                                <span className={`text-sm font-medium transition-colors ${scalability === "Basic" ? "text-[#2D312E]" : "text-gray-400 group-hover:text-[#2D312E]"}`}>Basic</span>
+                            </button>
                             <button
                                 onClick={() => setScalability("Standard")}
                                 className="flex items-center gap-2 cursor-pointer group"

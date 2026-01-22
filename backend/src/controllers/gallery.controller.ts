@@ -64,16 +64,25 @@ export const deleteMedia = async (req: Request, res: Response) => {
 export const getUploadSignature = (req: Request, res: Response) => {
     try {
         const timestamp = Math.round((new Date()).getTime() / 1000);
+        const requestedFolder = (req.query.folder || req.body?.folder) as string | undefined;
+        const allowedFolders = new Set([
+            'alpha-devs-gallery',
+            'alpha-devs-services',
+            'alpha-devs-products',
+            'alpha-devs-testimonials'
+        ]);
+        const folder = allowedFolders.has(requestedFolder || '') ? requestedFolder! : 'alpha-devs-gallery';
         const signature = cloudinary.utils.api_sign_request({
             timestamp: timestamp,
-            folder: 'alpha-devs-gallery' // Optional: organize uploads
+            folder
         }, process.env.CLOUDINARY_API_SECRET!);
 
         res.json({
             signature,
             timestamp,
             cloudName: process.env.CLOUDINARY_CLOUD_NAME,
-            apiKey: process.env.CLOUDINARY_API_KEY
+            apiKey: process.env.CLOUDINARY_API_KEY,
+            folder
         });
     } catch (error) {
         res.status(500).json({ error: 'Failed to generate signature' });

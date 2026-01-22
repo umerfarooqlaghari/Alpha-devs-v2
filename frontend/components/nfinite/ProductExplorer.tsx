@@ -112,12 +112,7 @@ export default function ProductExplorer({ activeCategory, onCategoryChange }: Pr
                                     </Link>
                                 </div>
 
-                                {/* Media Support */}
-                                {product.imageUrl && (
-                                    <div className="absolute top-0 right-0 w-32 h-32 md:w-48 md:h-48 opacity-10 group-hover:opacity-20 transition-opacity">
-                                        <img src={product.imageUrl} className="w-full h-full object-contain" />
-                                    </div>
-                                )}
+                                {/* Images intentionally removed for cleaner cards */}
                             </div>
                         ))}
                     </div>

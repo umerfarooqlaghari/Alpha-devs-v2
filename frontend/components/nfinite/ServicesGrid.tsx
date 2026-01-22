@@ -1,13 +1,13 @@
-"use client";
-
 import React, { useEffect, useState } from 'react';
 import { Zap, Cpu, Code, Layers, Globe, Shield, Database, ShoppingCart, Paintbrush, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 
 interface Service {
     id: string;
     title: string;
     description: string;
     keywords: string[];
+    slug?: string;
     videoUrl?: string;
 }
 
@@ -64,7 +64,7 @@ export default function ServicesGrid() {
                 {/* Grid */}
                 {loading ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {[1, 2, 4, 4].map(i => (
+                        {[1, 2, 3, 4].map(i => (
                             <div key={i} className="h-80 bg-white/5 animate-pulse rounded-2xl" />
                         ))}
                     </div>
@@ -84,10 +84,13 @@ export default function ServicesGrid() {
                                 <p className="text-sm text-dark-navy/50 leading-relaxed mb-8 flex-grow">
                                     {service.description}
                                 </p>
-                                <button className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-dark-navy/40 hover:text-light-blue transition-colors group/btn">
+                                <Link
+                                    href={`/services/${service.slug || service.id}`}
+                                    className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-dark-navy/40 hover:text-light-blue transition-colors group/btn"
+                                >
                                     Read more
                                     <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-                                </button>
+                                </Link>
                             </div>
                         ))}
                     </div>

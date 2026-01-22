@@ -10,9 +10,9 @@ const plusJakarta = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
   title: "Alpha Development",
-  description: "Re-creation of nfinitepaper.com",
+  description: "Take your business to the next level with Alpha Development",
   icons: {
-    icon: "/next.svg",
+    icon: "/favicon.png",
   },
 };
 
