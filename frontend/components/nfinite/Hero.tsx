@@ -53,10 +53,10 @@ export default function Hero() {
 
             {/* Content */}
             <div className="relative z-10 max-w-5xl mx-auto px-6 text-center text-white">
-                <h1 className="text-5xl md:text-7xl font-black leading-[0.9] tracking-tighter mb-6 text-balance text-shadow-sm uppercase">
+                <h1 className="text-3xl sm:text-5xl md:text-7xl font-black leading-[1.1] md:leading-[0.9] tracking-tighter mb-6 text-balance text-shadow-sm uppercase">
                     Revolutionizing Enterprise with Intelligent Software
                 </h1>
-                <p className="text-lg md:text-xl font-medium max-w-2xl mx-auto opacity-90 mb-8 italic">
+                <p className="text-base md:text-xl font-medium max-w-2xl mx-auto opacity-90 mb-8 italic px-4 md:px-0">
                     Engineering high-performance AI, ERP, and custom digital ecosystems for global leaders.
                 </p>
                 <Link href="/services">

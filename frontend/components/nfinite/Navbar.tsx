@@ -32,12 +32,12 @@ export default function Navbar() {
     }, [isMenuOpen]);
 
     return (
-        <nav className="absolute top-0 left-0 right-0 z-50 px-6 md:px-12 py-6 bg-transparent">
-            <div className="max-w-7xl mx-auto flex items-center justify-between">
+        <nav className="absolute top-0 left-0 right-0 z-50 px-4 sm:px-6 md:px-12 py-6 bg-transparent">
+            <div className="max-w-7xl mx-auto flex items-center justify-between gap-2">
                 {/* Logo Area (Left) */}
-                <div className="flex-1 flex justify-start">
-                    <Link href="/" className="flex items-center gap-3 group">
-                        <div className="relative w-8 h-8 flex-shrink-0 transition-transform duration-500 group-hover:rotate-[360deg]">
+                <div className="flex-1 min-w-0 flex justify-start">
+                    <Link href="/" className="flex items-center gap-2 sm:gap-3 group">
+                        <div className="relative w-6 h-6 sm:w-8 sm:h-8 flex-shrink-0 transition-transform duration-500 group-hover:rotate-[360deg]">
                             <Image
                                 src="/favicon.png"
                                 alt="Alpha"
@@ -46,7 +46,7 @@ export default function Navbar() {
                                 priority
                             />
                         </div>
-                        <div className={`logo-container font-black tracking-tighter text-2xl uppercase ${isLightPage ? "text-black" : "text-white"}`}>
+                        <div className={`logo-container font-black tracking-tighter text-base xs:text-lg sm:text-xl md:text-2xl uppercase ${isLightPage ? "text-black" : "text-white"} truncate`}>
                             {"Alpha Development".split("").map((char, i, arr) => (
                                 <span
                                     key={i}

@@ -237,13 +237,13 @@ export default function GrainScroll() {
                                 : "opacity-0 translate-y-12 filter blur-md scale-95"
                                 }`}
                         >
-                            <span className="text-sm font-bold tracking-[0.4em] text-light-blue uppercase mb-6 block drop-shadow-lg">
+                            <span className="text-xs md:text-sm font-bold tracking-[0.4em] text-light-blue uppercase mb-4 md:mb-6 block drop-shadow-lg">
                                 {step.phase}
                             </span>
-                            <h2 className="text-5xl md:text-8xl font-bold text-white mb-8 tracking-tighter leading-tight drop-shadow-2xl">
+                            <h2 className="text-3xl sm:text-5xl md:text-8xl font-bold text-white mb-4 md:mb-8 tracking-tighter leading-tight drop-shadow-2xl">
                                 {step.title}
                             </h2>
-                            <p className="text-xl md:text-3xl text-gray-300 max-w-3xl mx-auto leading-relaxed drop-shadow-md">
+                            <p className="text-base sm:text-lg md:text-3xl text-gray-300 max-w-3xl mx-auto leading-relaxed drop-shadow-md px-2 md:px-0">
                                 {step.description}
                             </p>
                         </div>
@@ -251,11 +251,11 @@ export default function GrainScroll() {
                 </div>
 
                 {/* Side Indicators */}
-                <div className="absolute right-8 top-1/2 -translate-y-1/2 flex flex-col gap-6 z-20">
+                <div className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 items-center flex flex-col gap-4 md:gap-6 z-20">
                     {TIMELINE_STEPS.map((_, idx) => (
                         <div
                             key={idx}
-                            className={`w-1.5 h-1.5 rounded-full transition-all duration-500 shadow-glow ${activePhase === idx ? "bg-white scale-150 h-6" : "bg-white/20"
+                            className={`w-1 md:w-1.5 h-1 md:h-1.5 rounded-full transition-all duration-500 shadow-glow ${activePhase === idx ? "bg-white scale-150 h-4 md:h-6" : "bg-white/20"
                                 }`}
                         />
                     ))}
