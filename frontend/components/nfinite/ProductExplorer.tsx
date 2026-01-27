@@ -121,3 +121,7 @@ export default function ProductExplorer({ activeCategory, onCategoryChange }: Pr
         </section>
     );
 }
+
+// --primary-color: {{PRIMARY_COLOR}};
+            // --secondary-color: {{SECONDARY_COLOR}};
+            // --tertiary-color: {{TERTIARY_COLOR}};

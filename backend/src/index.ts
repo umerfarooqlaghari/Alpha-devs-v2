@@ -10,6 +10,10 @@ import testimonialRoutes from './routes/testimonial.routes';
 import contactRoutes from './routes/contact.routes';
 import productRoutes from './routes/product.routes';
 import pagemediaRoutes from './routes/pagemedia.routes';
+import optimizationRoutes from './routes/optimization.routes';
+import blogRoutes from './routes/blog.routes';
+import faqRoutes from './routes/faq.routes';
+import analyticsRoutes from './routes/analytics.routes';
 
 dotenv.config(); // Load env from backend/.env
 
@@ -42,6 +46,12 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 
+// Request logging middleware
+app.use((req, res, next) => {
+  console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+  next();
+});
+
 app.use('/auth', authRoutes);
 app.use('/api/services', serviceRoutes);
 app.use('/api/gallery', galleryRoutes);
@@ -49,6 +59,10 @@ app.use('/api/testimonials', testimonialRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/pagemedia', pagemediaRoutes);
+app.use('/api/optimization', optimizationRoutes);
+app.use('/api/blogs', blogRoutes);
+app.use('/api/faqs', faqRoutes);
+app.use('/api/analytics', analyticsRoutes);
 
 app.get('/', (req, res) => {
   res.send('Backend is running!');

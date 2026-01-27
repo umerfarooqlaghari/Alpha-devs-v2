@@ -275,25 +275,25 @@ export default function ServicesManager() {
                                 <div className="space-y-6">
                                     <div>
                                         <label className="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Service Title</label>
-                                        <input type="text" value={currentService.title} onChange={(e) => setCurrentService({ ...currentService, title: e.target.value })} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none text-sm" placeholder="e.g., Computer Vision Solutions" />
+                                        <input type="text" value={currentService.title} onChange={(e) => setCurrentService({ ...currentService, title: e.target.value })} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none text-sm text-black" placeholder="e.g., Computer Vision Solutions" />
                                     </div>
                                     <div>
                                         <label className="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">URL Slug</label>
-                                        <input type="text" value={currentService.slug} onChange={(e) => setCurrentService({ ...currentService, slug: e.target.value })} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none text-sm font-mono" placeholder="computer-vision (auto from title)" />
+                                        <input type="text" value={currentService.slug} onChange={(e) => setCurrentService({ ...currentService, slug: e.target.value })} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none text-sm font-mono text-black" placeholder="computer-vision (auto from title)" />
                                     </div>
                                     <div>
                                         <label className="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Keywords (SEO)</label>
-                                        <textarea value={currentService.keywords?.join(', ')} onChange={(e) => setCurrentService({ ...currentService, keywords: e.target.value.split(',').map(s => s.trim()) })} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none text-sm" placeholder="AI, Machine Learning, RPA..." />
+                                        <textarea value={currentService.keywords?.join(', ')} onChange={(e) => setCurrentService({ ...currentService, keywords: e.target.value.split(',').map(s => s.trim()) })} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none text-sm text-black" placeholder="AI, Machine Learning, RPA..." />
                                     </div>
                                 </div>
                                 <div className="space-y-6">
                                     <div>
                                         <label className="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Card Description</label>
-                                        <textarea value={currentService.description} onChange={(e) => setCurrentService({ ...currentService, description: e.target.value })} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none text-sm min-h-[140px]" />
+                                        <textarea value={currentService.description} onChange={(e) => setCurrentService({ ...currentService, description: e.target.value })} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none text-sm min-h-[140px] text-black" />
                                     </div>
                                     <div>
                                         <label className="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Order priority</label>
-                                        <input type="number" value={currentService.order} onChange={(e) => setCurrentService({ ...currentService, order: parseInt(e.target.value) })} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none text-sm" />
+                                        <input type="number" value={currentService.order} onChange={(e) => setCurrentService({ ...currentService, order: parseInt(e.target.value) })} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none text-sm text-black" />
                                     </div>
                                 </div>
                             </div>
@@ -308,11 +308,11 @@ export default function ServicesManager() {
                                     </div>
                                     <div>
                                         <label className="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Small Subtitle</label>
-                                        <input type="text" value={currentService.heroSubtitle || ''} onChange={(e) => setCurrentService({ ...currentService, heroSubtitle: e.target.value })} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none text-sm" />
+                                        <input type="text" value={currentService.heroSubtitle || ''} onChange={(e) => setCurrentService({ ...currentService, heroSubtitle: e.target.value })} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none text-sm text-black" />
                                     </div>
                                     <div>
                                         <label className="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Hero Text Body</label>
-                                        <textarea value={currentService.heroDescription || ''} onChange={(e) => setCurrentService({ ...currentService, heroDescription: e.target.value })} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none text-sm min-h-[100px]" />
+                                        <textarea value={currentService.heroDescription || ''} onChange={(e) => setCurrentService({ ...currentService, heroDescription: e.target.value })} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none text-sm min-h-[100px] text-black" />
                                     </div>
                                 </div>
                                 <div className="space-y-6">
@@ -323,7 +323,7 @@ export default function ServicesManager() {
                                     </div>
                                     <div>
                                         <label className="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Video Demonstration URL</label>
-                                        <input type="url" value={currentService.videoUrl || ''} onChange={(e) => setCurrentService({ ...currentService, videoUrl: e.target.value })} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none text-sm font-mono" />
+                                        <input type="url" value={currentService.videoUrl || ''} onChange={(e) => setCurrentService({ ...currentService, videoUrl: e.target.value })} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none text-sm font-mono text-black" />
                                     </div>
                                 </div>
                             </div>
@@ -345,9 +345,9 @@ export default function ServicesManager() {
                                                 <input type="file" className="absolute inset-0 opacity-0 cursor-pointer" onChange={(e) => handleFileUpload(e, 'card', { index: idx })} />
                                             </div>
                                             <div className="col-span-2 space-y-3">
-                                                <input type="text" value={card.tag} onChange={(e) => updateInfoCard(idx, 'tag', e.target.value)} className="w-full px-3 py-1 bg-white border border-gray-200 rounded-lg text-[10px] font-bold uppercase tracking-widest text-indigo-500" placeholder="TAG" />
-                                                <input type="text" value={card.title} onChange={(e) => updateInfoCard(idx, 'title', e.target.value)} className="w-full px-3 py-2 bg-white border border-gray-200 rounded-lg text-xs font-bold" placeholder="Card Title" />
-                                                <textarea value={card.description} onChange={(e) => updateInfoCard(idx, 'description', e.target.value)} className="w-full px-3 py-2 bg-white border border-gray-200 rounded-lg text-[10px] min-h-[60px]" />
+                                                <input type="text" value={card.tag} onChange={(e) => updateInfoCard(idx, 'tag', e.target.value)} className="w-full px-3 py-1 bg-white border border-gray-200 rounded-lg text-[10px] font-bold uppercase tracking-widest text-indigo-500 text-black" placeholder="TAG" />
+                                                <input type="text" value={card.title} onChange={(e) => updateInfoCard(idx, 'title', e.target.value)} className="w-full px-3 py-2 bg-white border border-gray-200 rounded-lg text-xs font-bold text-black" placeholder="Card Title" />
+                                                <textarea value={card.description} onChange={(e) => updateInfoCard(idx, 'description', e.target.value)} className="w-full px-3 py-2 bg-white border border-gray-200 rounded-lg text-[10px] min-h-[60px] text-black" />
                                             </div>
                                         </div>
                                     </div>
@@ -385,7 +385,7 @@ export default function ServicesManager() {
                                                             <input type="file" className="absolute inset-0 opacity-0 cursor-pointer" onChange={(e) => handleFileUpload(e, 'block', { index: idx })} />
                                                         </div>
                                                     ) : (
-                                                        <textarea value={block.content} onChange={(e) => updateContentBlock(idx, 'content', e.target.value)} className={`w-full p-4 bg-gray-50 rounded-xl outline-none min-h-[100px] ${block.type === 'heading' ? 'text-2xl font-bold' : 'text-sm'}`} placeholder="Enter content..." />
+                                                        <textarea value={block.content} onChange={(e) => updateContentBlock(idx, 'content', e.target.value)} className={`w-full p-4 bg-gray-50 rounded-xl outline-none min-h-[100px] text-black ${block.type === 'heading' ? 'text-2xl font-bold' : 'text-sm'}`} placeholder="Enter content..." />
                                                     )}
                                                 </div>
                                             </div>

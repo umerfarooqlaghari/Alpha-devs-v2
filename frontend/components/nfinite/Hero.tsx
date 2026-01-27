@@ -60,7 +60,7 @@ export default function Hero() {
                     Engineering high-performance AI, ERP, and custom digital ecosystems for global leaders.
                 </p>
                 <Link href="/services">
-                    <button className="bg-white text-black px-10 py-4 rounded-full text-sm font-black uppercase tracking-widest transition-all duration-300 transform hover:scale-105 hover:bg-black hover:text-white shadow-xl shadow-white/10">
+                    <button data-track="home-hero-cta" className="bg-white text-black px-10 py-4 rounded-full text-sm font-black uppercase tracking-widest transition-all duration-300 transform hover:scale-105 hover:bg-black hover:text-white shadow-xl shadow-white/10">
                         Explore Our Solutions
                     </button>
                 </Link>

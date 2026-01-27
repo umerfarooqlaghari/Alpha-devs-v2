@@ -158,7 +158,7 @@ export default function ContactSubmissionsManager() {
                                             <select
                                                 value={sub.status}
                                                 onChange={(e) => updateStatus(sub.id, e.target.value)}
-                                                className={`px-3 py-1 rounded-full text-[10px] font-bold border outline-none cursor-pointer ${getStatusColor(sub.status)}`}
+                                                className={`px-3 py-1 rounded-full text-[10px] font-bold border outline-none cursor-pointer text-black ${getStatusColor(sub.status)}`}
                                             >
                                                 <option value="PENDING">PENDING</option>
                                                 <option value="REVIEWED">REVIEWED</option>
@@ -185,8 +185,8 @@ export default function ContactSubmissionsManager() {
                                     )}
 
                                     <div className={`rounded-xl p-5 border ${sub.type === 'BOOKING'
-                                            ? 'bg-yellow-50/50 border-yellow-200/50'
-                                            : 'bg-gray-50/50 border-gray-100/50'
+                                        ? 'bg-yellow-50/50 border-yellow-200/50'
+                                        : 'bg-gray-50/50 border-gray-100/50'
                                         }`}>
                                         <h4 className={`text-sm font-bold mb-2 flex items-center gap-2 ${sub.type === 'BOOKING' ? 'text-yellow-800' : 'text-gray-700'}`}>
                                             <MessageSquare className={`w-4 h-4 ${sub.type === 'BOOKING' ? 'text-yellow-500' : 'text-indigo-400'}`} />

@@ -288,15 +288,15 @@ export default function ProductManager() {
                                 <div className="space-y-6">
                                     <div>
                                         <label className="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Internal Name</label>
-                                        <input type="text" value={currentProduct.name} onChange={(e) => setCurrentProduct({ ...currentProduct, name: e.target.value })} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none text-sm" placeholder="e.g., Alief Wellness" />
+                                        <input type="text" value={currentProduct.name} onChange={(e) => setCurrentProduct({ ...currentProduct, name: e.target.value })} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none text-sm text-black" placeholder="e.g., Alief Wellness" />
                                     </div>
                                     <div>
                                         <label className="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">URL Slug</label>
-                                        <input type="text" value={currentProduct.slug} onChange={(e) => setCurrentProduct({ ...currentProduct, slug: e.target.value })} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none text-sm font-mono" placeholder="alief-wellness (auto-generated if empty)" />
+                                        <input type="text" value={currentProduct.slug} onChange={(e) => setCurrentProduct({ ...currentProduct, slug: e.target.value })} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none text-sm font-mono text-black" placeholder="alief-wellness (auto-generated if empty)" />
                                     </div>
                                     <div>
                                         <label className="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Category</label>
-                                        <select value={currentProduct.category} onChange={(e) => setCurrentProduct({ ...currentProduct, category: e.target.value })} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none text-sm">
+                                        <select value={currentProduct.category} onChange={(e) => setCurrentProduct({ ...currentProduct, category: e.target.value })} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none text-sm text-black">
                                             {categories.map(cat => <option key={cat} value={cat}>{cat}</option>)}
                                         </select>
                                     </div>
@@ -304,11 +304,11 @@ export default function ProductManager() {
                                 <div className="space-y-6">
                                     <div>
                                         <label className="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Quick Tagline</label>
-                                        <input type="text" value={currentProduct.tagline} onChange={(e) => setCurrentProduct({ ...currentProduct, tagline: e.target.value })} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none text-sm font-semibold" placeholder="e.g., Counseling & Therapy Services" />
+                                        <input type="text" value={currentProduct.tagline} onChange={(e) => setCurrentProduct({ ...currentProduct, tagline: e.target.value })} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none text-sm font-semibold text-black" placeholder="e.g., Counseling & Therapy Services" />
                                     </div>
                                     <div>
                                         <label className="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Brief Summary</label>
-                                        <textarea value={currentProduct.description} onChange={(e) => setCurrentProduct({ ...currentProduct, description: e.target.value })} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none text-sm min-h-[140px]" />
+                                        <textarea value={currentProduct.description} onChange={(e) => setCurrentProduct({ ...currentProduct, description: e.target.value })} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none text-sm min-h-[140px] text-black" />
                                     </div>
                                     <div>
                                         <label className="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Product Card Image</label>
@@ -340,11 +340,11 @@ export default function ProductManager() {
                                         </div>
                                         <div>
                                             <label className="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Hero Small Subtitle</label>
-                                            <input type="text" value={currentProduct.heroSubtitle || ''} onChange={(e) => setCurrentProduct({ ...currentProduct, heroSubtitle: e.target.value })} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none text-sm" placeholder="Alief" />
+                                            <input type="text" value={currentProduct.heroSubtitle || ''} onChange={(e) => setCurrentProduct({ ...currentProduct, heroSubtitle: e.target.value })} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none text-sm text-black" placeholder="Alief" />
                                         </div>
                                         <div>
                                             <label className="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Hero Description</label>
-                                            <textarea value={currentProduct.heroDescription || ''} onChange={(e) => setCurrentProduct({ ...currentProduct, heroDescription: e.target.value })} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none text-sm min-h-[100px]" placeholder="Committed to providing a safe and nurturing space for you." />
+                                            <textarea value={currentProduct.heroDescription || ''} onChange={(e) => setCurrentProduct({ ...currentProduct, heroDescription: e.target.value })} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl outline-none text-sm min-h-[100px] text-black" placeholder="Committed to providing a safe and nurturing space for you." />
                                         </div>
                                     </div>
                                     <div className="space-y-6">
@@ -398,9 +398,9 @@ export default function ProductManager() {
                                                     <input type="file" className="absolute inset-0 opacity-0 cursor-pointer" onChange={(e) => handleFileUpload(e, 'card', { index: idx })} />
                                                 </div>
                                                 <div className="col-span-2 space-y-3">
-                                                    <input type="text" value={card.tag} onChange={(e) => updateInfoCard(idx, 'tag', e.target.value)} className="w-full px-3 py-1 bg-white border border-gray-200 rounded-lg text-[10px] font-bold uppercase tracking-widest text-indigo-500 outline-none" placeholder="TAG (e.g. 19-60)" />
-                                                    <input type="text" value={card.title} onChange={(e) => updateInfoCard(idx, 'title', e.target.value)} className="w-full px-3 py-2 bg-white border border-gray-200 rounded-lg text-xs font-bold outline-none" placeholder="Card Title" />
-                                                    <textarea value={card.description} onChange={(e) => updateInfoCard(idx, 'description', e.target.value)} className="w-full px-3 py-2 bg-white border border-gray-200 rounded-lg text-[10px] outline-none min-h-[60px]" placeholder="Brief description..." />
+                                                    <input type="text" value={card.tag} onChange={(e) => updateInfoCard(idx, 'tag', e.target.value)} className="w-full px-3 py-1 bg-white border border-gray-200 rounded-lg text-[10px] font-bold uppercase tracking-widest text-indigo-500 outline-none text-black" placeholder="TAG (e.g. 19-60)" />
+                                                    <input type="text" value={card.title} onChange={(e) => updateInfoCard(idx, 'title', e.target.value)} className="w-full px-3 py-2 bg-white border border-gray-200 rounded-lg text-xs font-bold outline-none text-black" placeholder="Card Title" />
+                                                    <textarea value={card.description} onChange={(e) => updateInfoCard(idx, 'description', e.target.value)} className="w-full px-3 py-2 bg-white border border-gray-200 rounded-lg text-[10px] outline-none min-h-[60px] text-black" placeholder="Brief description..." />
                                                 </div>
                                             </div>
                                         </div>
@@ -454,14 +454,14 @@ export default function ProductManager() {
                                                     ) : (
                                                         <>
                                                             <div className="flex gap-4 mb-2">
-                                                                <input type="text" value={block.style?.fontSize} onChange={(e) => updateContentBlock(idx, 'style.fontSize', e.target.value)} className="w-20 px-2 py-1 text-[10px] border border-gray-100 rounded bg-gray-50" placeholder="Size (px)" />
+                                                                <input type="text" value={block.style?.fontSize} onChange={(e) => updateContentBlock(idx, 'style.fontSize', e.target.value)} className="w-20 px-2 py-1 text-[10px] border border-gray-100 rounded bg-gray-50 text-black" placeholder="Size (px)" />
                                                                 <button onClick={() => updateContentBlock(idx, 'style.bold', !block.style?.bold)} className={`px-2 py-1 text-[10px] font-bold border rounded ${block.style?.bold ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-gray-50 text-gray-400 border-gray-100'}`}>B</button>
                                                                 <input type="color" value={block.style?.color || '#374151'} onChange={(e) => updateContentBlock(idx, 'style.color', e.target.value)} className="w-8 h-6 border-none bg-transparent cursor-pointer" />
                                                             </div>
                                                             <textarea
                                                                 value={block.content}
                                                                 onChange={(e) => updateContentBlock(idx, 'content', e.target.value)}
-                                                                className={`w-full p-4 bg-gray-50 border-none rounded-xl outline-none min-h-[100px] ${block.type === 'heading' ? 'text-2xl font-bold' : 'text-sm'}`}
+                                                                className={`w-full p-4 bg-gray-50 border-none rounded-xl outline-none min-h-[100px] text-black ${block.type === 'heading' ? 'text-2xl font-bold' : 'text-sm'}`}
                                                                 style={{
                                                                     fontSize: block.style?.fontSize,
                                                                     fontWeight: block.style?.bold ? 'bold' : 'normal',

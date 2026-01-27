@@ -1,14 +1,37 @@
-
-"use client";
-
+import { Metadata } from 'next';
+import { getOptimizationData } from "@/lib/optimization";
 import Navbar from "@/components/nfinite/Navbar";
 import Footer from "@/components/nfinite/Footer";
 import ConsultancyHero from "@/components/nfinite/ConsultancyHero";
 import ConsultancyRoadmap from "@/components/nfinite/ConsultancyRoadmap";
 
-export default function ConsultancyPage() {
+export async function generateMetadata(): Promise<Metadata> {
+    const data = await getOptimizationData('/consultancy');
+    if (!data) return {};
+
+    return {
+        title: data.title,
+        description: data.description,
+        keywords: data.keywords,
+        openGraph: {
+            title: data.ogTitle || data.title,
+            description: data.ogDescription || data.description,
+            images: data.ogImage ? [{ url: data.ogImage }] : [],
+        }
+    };
+}
+
+export default async function ConsultancyPage() {
+    const data = await getOptimizationData('/consultancy');
+
     return (
         <main className="bg-[#121212] min-h-screen">
+            {data?.structuredData && (
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(data.structuredData) }}
+                />
+            )}
             <Navbar />
             <ConsultancyHero />
             <ConsultancyRoadmap />

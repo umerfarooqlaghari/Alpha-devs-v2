@@ -1,11 +1,9 @@
 import { Metadata } from 'next';
 import { getOptimizationData } from "@/lib/optimization";
-import Navbar from "@/components/nfinite/Navbar";
-import Footer from "@/components/nfinite/Footer";
-import ProductsPageContent from "@/components/nfinite/ProductsPageContent";
+import FAQContent from "@/components/nfinite/FAQContent";
 
 export async function generateMetadata(): Promise<Metadata> {
-    const data = await getOptimizationData('/products');
+    const data = await getOptimizationData('/faq');
     if (!data) return {};
 
     return {
@@ -20,20 +18,18 @@ export async function generateMetadata(): Promise<Metadata> {
     };
 }
 
-export default async function ProductsPage() {
-    const data = await getOptimizationData('/products');
+export default async function FAQPage() {
+    const data = await getOptimizationData('/faq');
 
     return (
-        <main className="min-h-screen bg-white">
+        <div className="min-h-screen bg-cream">
             {data?.structuredData && (
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(data.structuredData) }}
                 />
             )}
-            <Navbar />
-            <ProductsPageContent />
-            <Footer />
-        </main>
+            <FAQContent />
+        </div>
     );
 }

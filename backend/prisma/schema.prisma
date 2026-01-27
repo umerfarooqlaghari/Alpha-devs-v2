@@ -314,3 +314,83 @@ model PageMedia {
   @@unique([pageName, sectionName, fieldName])
   @@map("page_media")
 }
+
+model SiteOptimization {
+  id              String   @id @default(cuid())
+  pagePath        String   @unique // e.g., "/", "/services", "/products", or specific IDs
+  title           String?
+  description     String?  @db.Text
+  keywords        String?  @db.Text
+  ogTitle         String?
+  ogDescription   String?  @db.Text
+  ogImage         String?
+  structuredData  Json?    // For JSON-LD
+  headerScripts   String?  @db.Text
+  bodyScripts     String?  @db.Text
+  footerScripts   String?  @db.Text
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("site_optimization")
+}
+
+model BlogPost {
+  id              String   @id @default(cuid())
+  title           String
+  slug            String   @unique
+  excerpt         String?
+  content         String   @db.Text
+  coverImage      String?
+  author          String   @default("Alpha Team")
+  category        String?
+  tags            String?
+  published       Boolean  @default(false)
+  
+  // SEO Specific
+  metaTitle       String?
+  metaDescription String?
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("blog_posts")
+}
+
+model FAQ {
+  id          String   @id @default(cuid())
+  question    String
+  answer      String   @db.Text
+  category    String?
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("faqs")
+}
+
+model AnalyticsEvent {
+  id        String   @id @default(cuid())
+  type      String   // "PAGE_VIEW" or "CLICK"
+  target    String   // Path name or Button ID
+  ip        String?
+  country   String?
+  city      String?
+  os        String?
+  browser   String?
+  timestamp DateTime @default(now())
+
+  @@index([type])
+  @@index([target])
+  @@map("analytics_events")
+}
+
+model AnalyticsStat {
+  id        String   @id @default(cuid())
+  type      String   // "PAGE_VIEW", "CLICK"
+  key       String   // e.g., "/services" or "btn-hero-cta"
+  count     Int      @default(0)
+  updatedAt DateTime @updatedAt
+
+  @@unique([type, key], name: "type_key")
+  @@map("analytics_stats")
+}

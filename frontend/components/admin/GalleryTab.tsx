@@ -115,7 +115,7 @@ export default function GalleryTab() {
                         <input
                             type="text"
                             placeholder="Search media..."
-                            className="pl-10 pr-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none w-full md:w-64"
+                            className="pl-10 pr-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none w-full md:w-64 text-black"
                             value={searchTerm}
                             onChange={e => setSearchTerm(e.target.value)}
                         />

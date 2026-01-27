@@ -1,3 +1,6 @@
+'use client';
+
+
 import React, { useEffect, useState } from 'react';
 import { Zap, Cpu, Code, Layers, Globe, Shield, Database, ShoppingCart, Paintbrush, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
@@ -86,6 +89,7 @@ export default function ServicesGrid() {
                                 </p>
                                 <Link
                                     href={`/services/${service.slug || service.id}`}
+                                    data-track={`service-card-${service.title.toLowerCase().replace(/\s+/g, '-')}`}
                                     className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-dark-navy/40 hover:text-light-blue transition-colors group/btn"
                                 >
                                     Read more

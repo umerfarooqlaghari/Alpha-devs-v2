@@ -1,5 +1,5 @@
-"use client";
-
+import { Metadata } from 'next';
+import { getOptimizationData } from "@/lib/optimization";
 import React, { Suspense } from 'react';
 import Navbar from "@/components/nfinite/Navbar";
 import ContactHero from "@/components/nfinite/ContactHero";
@@ -7,9 +7,33 @@ import ContactForm from "@/components/nfinite/ContactForm";
 import Footer from "@/components/nfinite/Footer";
 import { MessageSquare } from "lucide-react";
 
-export default function ContactPage() {
+export async function generateMetadata(): Promise<Metadata> {
+    const data = await getOptimizationData('/contact');
+    if (!data) return {};
+
+    return {
+        title: data.title,
+        description: data.description,
+        keywords: data.keywords,
+        openGraph: {
+            title: data.ogTitle || data.title,
+            description: data.ogDescription || data.description,
+            images: data.ogImage ? [{ url: data.ogImage }] : [],
+        }
+    };
+}
+
+export default async function ContactPage() {
+    const data = await getOptimizationData('/contact');
+
     return (
         <main className="min-h-screen bg-cream selection:bg-light-blue selection:text-black">
+            {data?.structuredData && (
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(data.structuredData) }}
+                />
+            )}
             <Navbar />
 
             <article>

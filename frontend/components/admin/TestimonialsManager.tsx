@@ -207,7 +207,7 @@ export default function TestimonialsManager() {
                                     <input
                                         type="text"
                                         required
-                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none"
+                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none text-black"
                                         value={formData.author}
                                         onChange={e => setFormData({ ...formData, author: e.target.value })}
                                         placeholder="Jane Doe"
@@ -218,7 +218,7 @@ export default function TestimonialsManager() {
                                     <input
                                         type="text"
                                         required
-                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none"
+                                        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none text-black"
                                         value={formData.role}
                                         onChange={e => setFormData({ ...formData, role: e.target.value })}
                                         placeholder="CTO"
@@ -239,7 +239,7 @@ export default function TestimonialsManager() {
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Quote</label>
                                 <textarea
-                                    className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none"
+                                    className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:ring-2 focus:ring-indigo-500 outline-none text-black"
                                     rows={4}
                                     required
                                     value={formData.quote}

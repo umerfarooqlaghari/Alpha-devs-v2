@@ -13,6 +13,8 @@ export default function Navbar() {
     const isConsultancyPage = pathname === "/consultancy";
     const isServicesPage = pathname === "/services";
     const isAboutPage = pathname === "/about";
+    const isBlogPage = pathname.startsWith("/blog");
+    const isFAQPage = pathname === "/faq";
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     // Theme logic: Products page and product detail pages have light background
@@ -66,27 +68,37 @@ export default function Navbar() {
                 {/* Navigation Links (Center) */}
                 <div className="hidden md:flex items-center gap-8">
                     {!isConsultancyPage && (
-                        <Link href="/consultancy" className={`text-sm font-medium transition-opacity ${textColor}`}>
+                        <Link href="/consultancy" data-track="nav-link-consultancy" className={`text-sm font-medium transition-opacity ${textColor}`}>
                             Consultancy
                         </Link>
                     )}
                     {!isServicesPage && (
-                        <Link href="/services" className={`text-sm font-medium transition-opacity ${textColor}`}>
+                        <Link href="/services" data-track="nav-link-services" className={`text-sm font-medium transition-opacity ${textColor}`}>
                             Services
                         </Link>
                     )}
                     {!isProductsPage && (
-                        <Link href="/products" className={`text-sm font-medium transition-opacity ${textColor}`}>
+                        <Link href="/products" data-track="nav-link-products" className={`text-sm font-medium transition-opacity ${textColor}`}>
                             Products
                         </Link>
                     )}
                     {!isAboutPage && (
-                        <Link href="/about" className={`text-sm font-medium transition-opacity ${textColor}`}>
+                        <Link href="/about" data-track="nav-link-about" className={`text-sm font-medium transition-opacity ${textColor}`}>
                             About Us
                         </Link>
                     )}
+                    {!isBlogPage && (
+                        <Link href="/blog" data-track="nav-link-blog" className={`text-sm font-medium transition-opacity ${textColor}`}>
+                            Blog
+                        </Link>
+                    )}
+                    {!isFAQPage && (
+                        <Link href="/faq" data-track="nav-link-faq" className={`text-sm font-medium transition-opacity ${textColor}`}>
+                            FAQ
+                        </Link>
+                    )}
                     {!isContactPage && (
-                        <Link href="/contact" className={`text-sm font-medium transition-opacity ${textColor}`}>
+                        <Link href="/contact" data-track="nav-link-contact" className={`text-sm font-medium transition-opacity ${textColor}`}>
                             Contact Us
                         </Link>
                     )}
@@ -95,7 +107,7 @@ export default function Navbar() {
                 {/* CTA Button (Right Area - Fixed width container to maintain center balance) */}
                 <div className="flex-1 flex items-center justify-end gap-3">
                     {!isContactPage && (
-                        <Link href="/contact?type=booking">
+                        <Link href="/contact?type=booking" data-track="nav-cta-booking">
                             <button className={`${isLightPage ? 'bg-black text-white' : 'bg-light-blue text-black'} hidden md:inline-flex px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 hover:scale-105 border border-transparent whitespace-nowrap`}>
                                 Book a Call
                             </button>
@@ -180,6 +192,16 @@ export default function Navbar() {
                         {!isAboutPage && (
                             <Link href="/about" onClick={() => setIsMenuOpen(false)} className="transition-opacity hover:opacity-70">
                                 About Us
+                            </Link>
+                        )}
+                        {!isBlogPage && (
+                            <Link href="/blog" onClick={() => setIsMenuOpen(false)} className="transition-opacity hover:opacity-70">
+                                Blog
+                            </Link>
+                        )}
+                        {!isFAQPage && (
+                            <Link href="/faq" onClick={() => setIsMenuOpen(false)} className="transition-opacity hover:opacity-70">
+                                FAQ
                             </Link>
                         )}
                         {!isContactPage && (
