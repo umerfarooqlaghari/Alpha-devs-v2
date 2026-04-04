@@ -3,8 +3,8 @@
 import React from 'react';
 
 const stats = [
-    { label: "Completed Projects", value: "350+" },
-    { label: "Years Experience", value: "12+" },
+    { label: "Completed Projects", value: "35+" },
+    { label: "Domain specializations", value: "12+" },
     { label: "Team Members", value: "25+" },
 ];
 

@@ -3,9 +3,9 @@
 
 export default function ProductStats() {
     const stats = [
-        { label: "Happy Clients", value: "250+" },
-        { label: "Successful Deployments", value: "600+" },
-        { label: "Countries Served", value: "15+" },
+        { label: "Happy Clients", value: "15+" },
+        { label: "Successful Deployments", value: "35+" },
+        { label: "Countries Served", value: "10+" },
         { label: "Uptime Guaranteed", value: "99.9%" },
     ];
 
