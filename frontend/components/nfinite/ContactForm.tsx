@@ -233,7 +233,7 @@ export default function ContactForm() {
             )}
             <div className="grid grid-cols-1 mt-10 md:grid-cols-3 gap-8 max-w-5xl mx-auto animate-in fade-in slide-in-from-bottom-10 duration-1000">
                 {[
-                    { icon: <Mail className="w-6 h-6" />, label: "Email Us", value: "info@alphadevs.com" },
+                    { icon: <Mail className="w-6 h-6" />, label: "Email Us", value: "info@alpha-devs.cloud" },
                     { icon: <Phone className="w-6 h-6" />, label: "Call Us", value: "+92 300-9243063" },
                     { icon: <MapPin className="w-6 h-6" />, label: "Visit Us", value: "Karachi, Pakistan" },
                 ].map((item, idx) => (
