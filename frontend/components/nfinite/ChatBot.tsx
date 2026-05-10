@@ -126,7 +126,7 @@ export default function ChatBot({ onClose }: ChatBotProps) {
                 return;
             }
             if (option === "Email Support") {
-                window.location.href = "mailto:info@alphadevs.com";
+                window.location.href = "mailto:info@alpha-devs.cloud";
                 return;
             }
 
