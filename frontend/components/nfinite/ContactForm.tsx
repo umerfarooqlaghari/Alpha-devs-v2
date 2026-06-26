@@ -4,6 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import { Send, CheckCircle2, AlertCircle, Loader2, Mail, Phone, MapPin } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
+import { gtagEvent } from '@/lib/gtag';
 
 export default function ContactForm() {
     const searchParams = useSearchParams();
@@ -53,6 +54,15 @@ export default function ContactForm() {
 
             setStatus('success');
             setFormData({ name: '', email: '', subject: '', message: '', date: '', time: '' });
+
+            // GA4 conversion events
+            if (formType === 'BOOKING') {
+                gtagEvent('generate_lead', { event_category: 'booking', event_label: 'book_a_call' });
+                gtagEvent('book_a_call');
+            } else {
+                gtagEvent('generate_lead', { event_category: 'contact', event_label: 'general_inquiry' });
+                gtagEvent('contact_form_submit');
+            }
         } catch (error: any) {
             console.error('Submission error:', error);
             setStatus('error');
@@ -233,7 +243,7 @@ export default function ContactForm() {
             )}
             <div className="grid grid-cols-1 mt-10 md:grid-cols-3 gap-8 max-w-5xl mx-auto animate-in fade-in slide-in-from-bottom-10 duration-1000">
                 {[
-                    { icon: <Mail className="w-6 h-6" />, label: "Email Us", value: "info@alpha-devs.cloud" },
+                    { icon: <Mail className="w-6 h-6" />, label: "Email Us", value: "info@alphadevs.com" },
                     { icon: <Phone className="w-6 h-6" />, label: "Call Us", value: "+92 300-9243063" },
                     { icon: <MapPin className="w-6 h-6" />, label: "Visit Us", value: "Karachi, Pakistan" },
                 ].map((item, idx) => (

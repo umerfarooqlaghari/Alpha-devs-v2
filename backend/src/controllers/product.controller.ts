@@ -1,13 +1,6 @@
 import { Request, Response } from 'express';
 import prisma from '../lib/prisma';
-import { v2 as cloudinary } from 'cloudinary';
-
-// Configure Cloudinary
-cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
-});
+import { deleteFromS3, keyFromUrl } from '../lib/s3';
 
 export const getProducts = async (req: Request, res: Response) => {
     try {
@@ -186,16 +179,16 @@ export const deleteProduct = async (req: Request, res: Response) => {
         });
 
         if (product) {
-            // Delete media from Cloudinary
-            const mediaToDelete = [
-                { id: (product as any).imagePublicId, type: 'image' },
-                { id: (product as any).videoPublicId, type: 'video' },
-                ...((product as any).infoCards || []).map((c: any) => ({ id: c.publicId, type: 'image' })),
-                ...((product as any).contentBlocks || []).map((b: any) => ({ id: b.publicId, type: 'image' }))
-            ].filter((m: any) => m.id);
+            // Delete media from S3
+            const urlsToDelete = [
+                (product as any).imageUrl,
+                (product as any).videoUrl,
+                ...((product as any).infoCards || []).map((c: any) => c.imageUrl),
+                ...((product as any).contentBlocks || []).map((b: any) => b.imageUrl),
+            ].filter((url: any) => url && url.includes('.amazonaws.com'));
 
-            for (const m of mediaToDelete) {
-                await cloudinary.uploader.destroy(m.id as string, { resource_type: m.type as any });
+            for (const url of urlsToDelete) {
+                await deleteFromS3(keyFromUrl(url)).catch(() => {});
             }
         }
 

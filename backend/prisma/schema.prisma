@@ -394,3 +394,23 @@ model AnalyticsStat {
   @@unique([type, key], name: "type_key")
   @@map("analytics_stats")
 }
+
+// AI Agents Portfolio
+model AIAgent {
+  id               String   @id @default(cuid())
+  name             String
+  slug             String   @unique
+  tagline          String
+  description      String   @db.Text
+  category         String   // e.g., "Alpha Dev", "Microsoft"
+  businessFunction String?  // e.g., "Sales", "Finance", "HR"
+  domain           String?  // e.g., "ERP", "Document Processing"
+  industry         String?  // e.g., "Retail", "Manufacturing"
+  status           String   @default("LIVE") // "LIVE" | "COMING_SOON"
+  iconColor        String   @default("#4A5D4E") // hex color for the agent card accent
+  order            Int      @default(0)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@map("ai_agents")
+}

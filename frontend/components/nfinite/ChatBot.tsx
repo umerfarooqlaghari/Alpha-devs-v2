@@ -78,7 +78,7 @@ const KNOWLEDGE_BASE: Record<string, { text: string; options: string[] }> = {
         options: ["Industries Served", "Back to About"]
     },
     "How can I contact the team?": {
-        text: "Ready to start? You can reach us at info@alpha-devs.cloud or call us at +92 300-9243063. We are based in Karachi, Pakistan.",
+        text: "Ready to start? You can reach us at info@alphadevs.com or call us at +92 300-9243063. We are based in Karachi, Pakistan.",
         options: ["Book a Call", "Office Location", "Back to Menu"]
     },
     "Back to Menu": {
@@ -126,7 +126,7 @@ export default function ChatBot({ onClose }: ChatBotProps) {
                 return;
             }
             if (option === "Email Support") {
-                window.location.href = "mailto:info@alpha-devs.cloud";
+                window.location.href = "mailto:info@alphadevs.com";
                 return;
             }
 

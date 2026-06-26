@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { gtagEvent } from "@/lib/gtag";
 
 export default function Navbar() {
     const pathname = usePathname();
@@ -15,10 +16,11 @@ export default function Navbar() {
     const isAboutPage = pathname === "/about";
     const isBlogPage = pathname.startsWith("/blog");
     const isFAQPage = pathname === "/faq";
+    const isAIAgentsPage = pathname === "/ai-agents";
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    // Theme logic: Products page and product detail pages have light background
-    const isLightPage = isProductsPage || pathname.startsWith("/products/") || pathname.startsWith("/services/");
+    // Theme logic: Products page, product detail pages, and AI Agents page have light background
+    const isLightPage = isProductsPage || pathname.startsWith("/products/") || pathname.startsWith("/services/") || isAIAgentsPage;
     const textColor = isLightPage ? "text-black hover:text-gray-600" : "text-gray-300 hover:text-white";
     const logoClass = "object-contain object-left " + (isLightPage ? "" : "invert");
 
@@ -66,39 +68,44 @@ export default function Navbar() {
                 </div>
 
                 {/* Navigation Links (Center) */}
-                <div className="hidden md:flex items-center gap-8">
+                <div className="hidden lg:flex items-center gap-5">
                     {!isConsultancyPage && (
-                        <Link href="/consultancy" data-track="nav-link-consultancy" className={`text-sm font-medium transition-opacity ${textColor}`}>
+                        <Link href="/consultancy" data-track="nav-link-consultancy" className={`text-xs font-semibold transition-opacity ${textColor}`}>
                             Consultancy
                         </Link>
                     )}
                     {!isServicesPage && (
-                        <Link href="/services" data-track="nav-link-services" className={`text-sm font-medium transition-opacity ${textColor}`}>
+                        <Link href="/services" data-track="nav-link-services" className={`text-xs font-semibold transition-opacity ${textColor}`}>
                             Services
                         </Link>
                     )}
+                    {!isAIAgentsPage && (
+                        <Link href="/ai-agents" data-track="nav-link-ai-agents" className={`text-xs font-semibold transition-opacity ${textColor}`}>
+                            AI Agents
+                        </Link>
+                    )}
                     {!isProductsPage && (
-                        <Link href="/products" data-track="nav-link-products" className={`text-sm font-medium transition-opacity ${textColor}`}>
+                        <Link href="/products" data-track="nav-link-products" className={`text-xs font-semibold transition-opacity ${textColor}`}>
                             Products
                         </Link>
                     )}
                     {!isAboutPage && (
-                        <Link href="/about" data-track="nav-link-about" className={`text-sm font-medium transition-opacity ${textColor}`}>
+                        <Link href="/about" data-track="nav-link-about" className={`text-xs font-semibold transition-opacity ${textColor}`}>
                             About Us
                         </Link>
                     )}
                     {!isBlogPage && (
-                        <Link href="/blog" data-track="nav-link-blog" className={`text-sm font-medium transition-opacity ${textColor}`}>
+                        <Link href="/blog" data-track="nav-link-blog" className={`text-xs font-semibold transition-opacity ${textColor}`}>
                             Blog
                         </Link>
                     )}
                     {!isFAQPage && (
-                        <Link href="/faq" data-track="nav-link-faq" className={`text-sm font-medium transition-opacity ${textColor}`}>
+                        <Link href="/faq" data-track="nav-link-faq" className={`text-xs font-semibold transition-opacity ${textColor}`}>
                             FAQ
                         </Link>
                     )}
                     {!isContactPage && (
-                        <Link href="/contact" data-track="nav-link-contact" className={`text-sm font-medium transition-opacity ${textColor}`}>
+                        <Link href="/contact" data-track="nav-link-contact" className={`text-xs font-semibold transition-opacity ${textColor}`}>
                             Contact Us
                         </Link>
                     )}
@@ -107,8 +114,8 @@ export default function Navbar() {
                 {/* CTA Button (Right Area - Fixed width container to maintain center balance) */}
                 <div className="flex-1 flex items-center justify-end gap-3">
                     {!isContactPage && (
-                        <Link href="/contact?type=booking" data-track="nav-cta-booking">
-                            <button className={`${isLightPage ? 'bg-black text-white' : 'bg-light-blue text-black'} hidden md:inline-flex px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 hover:scale-105 border border-transparent whitespace-nowrap`}>
+                        <Link href="/contact?type=booking" data-track="nav-cta-booking" onClick={() => gtagEvent('book_a_call_click', { event_category: 'navbar', event_label: 'desktop' })}>
+                            <button className={`${isLightPage ? 'bg-black text-white' : 'bg-light-blue text-black'} hidden lg:inline-flex px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 hover:scale-105 border border-transparent whitespace-nowrap`}>
                                 Book a Call
                             </button>
                         </Link>
@@ -118,7 +125,7 @@ export default function Navbar() {
                         aria-label={isMenuOpen ? "Close menu" : "Open menu"}
                         aria-expanded={isMenuOpen}
                         onClick={() => setIsMenuOpen((prev) => !prev)}
-                        className={`md:hidden inline-flex items-center justify-center h-10 w-10 rounded-full border ${isLightPage ? "border-black/20 text-black hover:bg-black/5" : "border-white/20 text-white hover:bg-white/10"} transition`}
+                        className={`lg:hidden inline-flex items-center justify-center h-10 w-10 rounded-full border ${isLightPage ? "border-black/20 text-black hover:bg-black/5" : "border-white/20 text-white hover:bg-white/10"} transition`}
                     >
                         <span className="sr-only">{isMenuOpen ? "Close menu" : "Open menu"}</span>
                         <span className={`block h-0.5 w-5 bg-current transition-transform duration-300 ${isMenuOpen ? "translate-y-1.5 rotate-45" : ""}`} />
@@ -129,7 +136,7 @@ export default function Navbar() {
             </div>
 
             {/* Mobile Menu */}
-            <div className={`md:hidden fixed inset-0 z-40 ${isMenuOpen ? "pointer-events-auto" : "pointer-events-none"}`}>
+            <div className={`lg:hidden fixed inset-0 z-40 ${isMenuOpen ? "pointer-events-auto" : "pointer-events-none"}`}>
                 <div
                     className={`absolute inset-0 transition-opacity duration-300 ${isMenuOpen ? "opacity-100" : "opacity-0"} ${isLightPage ? "bg-black/30" : "bg-black/60"}`}
                     onClick={() => setIsMenuOpen(false)}
@@ -184,6 +191,11 @@ export default function Navbar() {
                                 Services
                             </Link>
                         )}
+                        {!isAIAgentsPage && (
+                            <Link href="/ai-agents" onClick={() => setIsMenuOpen(false)} className="transition-opacity hover:opacity-70">
+                                AI Agents
+                            </Link>
+                        )}
                         {!isProductsPage && (
                             <Link href="/products" onClick={() => setIsMenuOpen(false)} className="transition-opacity hover:opacity-70">
                                 Products
@@ -211,7 +223,7 @@ export default function Navbar() {
                         )}
                     </div>
                     {!isContactPage && (
-                        <Link href="/contact?type=booking" onClick={() => setIsMenuOpen(false)} className="mt-10 inline-flex">
+                        <Link href="/contact?type=booking" onClick={() => { setIsMenuOpen(false); gtagEvent('book_a_call_click', { event_category: 'navbar', event_label: 'mobile' }); }} className="mt-10 inline-flex">
                             <span className={`${isLightPage ? "bg-black text-white" : "bg-light-blue text-black"} px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 hover:scale-105 border border-transparent whitespace-nowrap`}>
                                 Book a Call
                             </span>

@@ -82,6 +82,17 @@ export default function Footer() {
                     </div>
 
                     <div>
+                        <h4 className="font-bold mb-4 text-black">Company</h4>
+                        <div className="space-y-2 flex flex-col">
+                            <Link href="/services" className="hover:text-black transition-colors">Services</Link>
+                            <Link href="/ai-agents" className="hover:text-black transition-colors">AI Agents</Link>
+                            <Link href="/products" className="hover:text-black transition-colors">Products</Link>
+                            <Link href="/consultancy" className="hover:text-black transition-colors">Consultancy</Link>
+                            <Link href="/about" className="hover:text-black transition-colors">About Us</Link>
+                        </div>
+                    </div>
+
+                    <div>
                         <h4 className="font-bold mb-4 text-black">Social</h4>
                         <div className="space-y-2 flex flex-col">
                             <Link href="https://upwork.com/freelancers/~015bb35b01027c8cb7" className="hover:text-black transition-colors">Upwork</Link>

@@ -29,7 +29,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 import FloatingAvatar from "@/components/nfinite/FloatingAvatar";
-import AnalyticsTracker from "@/components/AnalyticsTracker";
+import Script from "next/script";
 
 export default async function RootLayout({
   children,
@@ -41,9 +41,6 @@ export default async function RootLayout({
   return (
     <html lang="en" className={plusJakarta.variable}>
       <head>
-        {globalData?.headerScripts && (
-          <div dangerouslySetInnerHTML={{ __html: globalData.headerScripts }} />
-        )}
         {globalData?.structuredData && (
           <script
             type="application/ld+json"
@@ -52,11 +49,25 @@ export default async function RootLayout({
         )}
       </head>
       <body className="antialiased">
+        {/* Google Analytics 4 */}
+        {process.env.NEXT_PUBLIC_GA_ID && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga4-init" strategy="afterInteractive">
+              {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${process.env.NEXT_PUBLIC_GA_ID}',{page_path:window.location.pathname});`}
+            </Script>
+          </>
+        )}
+        {globalData?.headerScripts && (
+          <div dangerouslySetInnerHTML={{ __html: globalData.headerScripts }} />
+        )}
         {globalData?.bodyScripts && (
           <div dangerouslySetInnerHTML={{ __html: globalData.bodyScripts }} />
         )}
         {children}
-        <AnalyticsTracker />
         <FloatingAvatar />
         {globalData?.footerScripts && (
           <div dangerouslySetInnerHTML={{ __html: globalData.footerScripts }} />

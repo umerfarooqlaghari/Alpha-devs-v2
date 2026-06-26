@@ -13,7 +13,7 @@ import pagemediaRoutes from './routes/pagemedia.routes';
 import optimizationRoutes from './routes/optimization.routes';
 import blogRoutes from './routes/blog.routes';
 import faqRoutes from './routes/faq.routes';
-import analyticsRoutes from './routes/analytics.routes';
+import aiAgentRoutes from './routes/ai-agent.routes';
 
 dotenv.config(); // Load env from backend/.env
 
@@ -62,7 +62,7 @@ app.use('/api/pagemedia', pagemediaRoutes);
 app.use('/api/optimization', optimizationRoutes);
 app.use('/api/blogs', blogRoutes);
 app.use('/api/faqs', faqRoutes);
-app.use('/api/analytics', analyticsRoutes);
+app.use('/api/ai-agents', aiAgentRoutes);
 
 app.get('/', (req, res) => {
   res.send('Backend is running!');

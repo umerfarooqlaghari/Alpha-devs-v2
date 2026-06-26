@@ -12,7 +12,7 @@ import MediaContentManager from '@/components/admin/MediaContentManager';
 import OptimizationManager from '@/components/admin/OptimizationManager';
 import BlogManager from '@/components/admin/BlogManager';
 import FAQManager from '@/components/admin/FAQManager';
-import AnalyticsManager from '@/components/admin/AnalyticsManager';
+import AIAgentManager from '@/components/admin/AIAgentManager';
 import {
     LayoutDashboard,
     Briefcase,
@@ -25,7 +25,8 @@ import {
     Package,
     Search,
     HelpCircle,
-    BarChart3
+    BarChart3,
+    Bot
 } from 'lucide-react';
 
 export default function DashboardPage() {
@@ -48,7 +49,8 @@ export default function DashboardPage() {
     }
 
     const tabs = [
-        { id: 'analytics', name: 'Real-time Analytics', icon: BarChart3 },
+        { id: 'analytics', name: 'Analytics', icon: BarChart3 },
+        { id: 'ai-agents', name: 'AI Agents', icon: Bot },
         { id: 'blogs', name: 'Blog Posts', icon: FileText },
         { id: 'faqs', name: 'FAQs', icon: HelpCircle },
         { id: 'optimization', name: 'SEO & AEO', icon: Globe },
@@ -63,7 +65,25 @@ export default function DashboardPage() {
     const renderTabContent = () => {
         switch (activeTab) {
             case 'analytics':
-                return <AnalyticsManager />;
+                return (
+                    <div className="flex flex-col items-center justify-center py-24 gap-6 text-center">
+                        <BarChart3 className="w-12 h-12 text-gray-300" />
+                        <div>
+                            <h3 className="text-xl font-bold text-gray-800 mb-2">Analytics via Google Analytics 4</h3>
+                            <p className="text-gray-500 text-sm mb-6 max-w-sm">All traffic data, sessions, conversions and real-time visitors are tracked in your GA4 dashboard.</p>
+                        </div>
+                        <a
+                            href="https://analytics.google.com"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 px-6 py-3 bg-[#2D312E] text-white font-semibold rounded-xl hover:bg-[#4A5D4E] transition-colors"
+                        >
+                            Open GA4 Dashboard
+                        </a>
+                    </div>
+                );
+            case 'ai-agents':
+                return <AIAgentManager />;
             case 'blogs':
                 return <BlogManager />;
             case 'faqs':
