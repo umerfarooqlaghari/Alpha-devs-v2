@@ -11,11 +11,13 @@ const ses = new SESClient({
 });
 
 const FROM_EMAIL = process.env.AWS_SES_FROM_EMAIL || 'info@alpha-devs.cloud';
+const ADMIN_EMAILS = ['info@alpha-devs.cloud', 'sales@alpha-devs.cloud'];
 
-async function sendEmail(to: string, subject: string, html: string, text: string) {
+async function sendEmail(to: string | string[], subject: string, html: string, text: string) {
+    const toAddresses = Array.isArray(to) ? to : [to];
     const cmd = new SendEmailCommand({
         Source: `"Alpha Devs" <${FROM_EMAIL}>`,
-        Destination: { ToAddresses: [to] },
+        Destination: { ToAddresses: toAddresses },
         Message: {
             Subject: { Data: subject, Charset: 'UTF-8' },
             Body: {
@@ -92,7 +94,7 @@ export const handleContactForm = async (req: Request, res: Response) => {
         const userText = `Hi ${name},\n\nThank you for reaching out to Alpha Devs. ${isBooking ? `We have received your meeting request for ${date} at ${time}.` : `We have received your message regarding "${subject}".`}\n\nOur team will get back to you shortly.\n\nBest regards,\nThe Alpha Devs Team`;
 
         await Promise.all([
-            sendEmail(FROM_EMAIL, `[${typeLabel}] ${subject} from ${name}`, adminHtml, adminText),
+            sendEmail(ADMIN_EMAILS, `[${typeLabel}] ${subject} from ${name}`, adminHtml, adminText),
             sendEmail(email, isBooking ? 'Your Meeting Request with Alpha Devs' : 'We received your contact request!', userHtml, userText),
         ]);
 
