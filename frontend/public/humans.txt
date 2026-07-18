@@ -1,0 +1,23 @@
+# humanstxt.org
+
+/* TEAM */
+Company: Alpha-Devs
+Location: Global
+Background: FAST Alumni
+
+/* SITE */
+Standards: HTML5, CSS3, JavaScript, TypeScript
+Components: React, Next.js 16, Framer Motion
+Styling: Tailwind CSS 4
+Backend: Node.js, Prisma ORM
+Fonts: Geist
+Hosting: Vercel
+
+/* THANKS */
+Next.js Team - For the amazing framework
+Vercel - For seamless deployment
+React Team - For the powerful library
+TypeScript Team - For type safety
+Tailwind Labs - For utility-first CSS
+
+Last update: 2026/07/18

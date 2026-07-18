@@ -1,0 +1,15 @@
+# Apple App Site Association
+# Used for iOS Universal Links and Handoff
+
+{
+  "applinks": {
+    "apps": [],
+    "details": []
+  },
+  "webcredentials": {
+    "apps": []
+  },
+  "appclips": {
+    "apps": []
+  }
+}
