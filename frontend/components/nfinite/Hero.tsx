@@ -14,6 +14,11 @@ export default function Hero() {
                 const res = await fetch(`${API_URL}/api/pagemedia`);
                 const data = await res.json();
 
+                if (!Array.isArray(data)) {
+                    console.warn('Unexpected pagemedia response shape:', data);
+                    return;
+                }
+
                 const homeHeroVideo = data.find((m: any) => m.pageName === 'Home' && m.sectionName === 'Hero' && m.fieldName === 'backgroundVideo');
                 const homeHeroImage = data.find((m: any) => m.pageName === 'Home' && m.sectionName === 'Hero' && m.fieldName === 'backgroundImage');
 

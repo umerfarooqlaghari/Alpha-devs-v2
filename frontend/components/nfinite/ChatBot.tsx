@@ -1,107 +1,70 @@
-
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
-import { X, Send, Bot, User, ChevronRight } from "lucide-react";
+import { X, Bot, User, ChevronRight, Phone, Loader } from "lucide-react";
+import Vapi from "@vapi-ai/web";
+import {
+    buildVapiMetadata,
+    createEmbedSession,
+    getSalesAgentConfigFromEnv,
+    isVoiceSessionReady,
+    querySalesAgent,
+} from "@/lib/salesAgentClient";
 
 interface Message {
     id: string;
     text: string;
     sender: "bot" | "user";
     options?: string[];
+    isLoading?: boolean;
 }
 
 interface ChatBotProps {
     onClose: () => void;
 }
 
+const SALES_AGENT = getSalesAgentConfigFromEnv();
+
 const INITIAL_MESSAGE: Message = {
     id: "1",
     sender: "bot",
-    text: "Hello! I am Alpha-Bot, your digital guide to Alpha-Devs. What would you like to explore today?",
+    text: "Hello! I am Alpha-Bot, your AI-powered sales assistant from Alpha-Devs. How can I help you today?",
     options: [
         "Show me your products",
         "How does consultancy work?",
         "Tell me about Alpha-Devs",
-        "How can I contact the team?"
+        "How can I contact the team?",
+        "☎️ Call Now",
+        "📅 Schedule a Call"
     ]
 };
 
-const KNOWLEDGE_BASE: Record<string, { text: string; options: string[] }> = {
+// Fallback responses for common quick questions
+const FALLBACK_RESPONSES: Record<string, { text: string; options: string[] }> = {
     "Show me your products": {
         text: "We build high-performance digital solutions across 5 key categories: AI-Powered ERP, Computer Vision, SaaS, Ed-Tech, and Sales Intel. Which area interests you most?",
         options: ["AI & ERP Solutions", "Computer Vision & SOPs", "SaaS & Survey Tools", "Ed-Tech Platforms", "Back to Menu"]
-    },
-    "AI & ERP Solutions": {
-        text: "Our AI-Powered ERP Query Intelligence System provides smart insights and instant answers from your corporate data. It's designed for enterprises that need real-time data clarity.",
-        options: ["Enterprise vs Standard", "Request ERP Demo", "Back to Products"]
-    },
-    "Computer Vision & SOPs": {
-        text: "Our CV Surveillance system detects SOP violations in real-time. It’s perfect for industrial safety and retail compliance monitoring.",
-        options: ["Security Features", "Industrial Use-Cases", "Back to Products"]
-    },
-    "SaaS & Survey Tools": {
-        text: "From Alpha Survey for complex data gathering to Alpha Sales Scheduler for pipeline management, our SaaS tools are built to scale with your user base.",
-        options: ["Alpha Survey", "Sales Scheduler", "Back to Products"]
-    },
-    "Ed-Tech Platforms": {
-        text: "Mentore is our flagship Ed-Tech platform, designed to bridge the gap between traditional learning and modern digital accessibility.",
-        options: ["Learning Management", "Live Classes", "Back to Products"]
-    },
-    "How does consultancy work?": {
-        text: "Our product consultancy is a strategic 7-phase journey. We go far beyond code—we engineer your business success from the ground up.",
-        options: ["The Discovery Phase", "Design Thinking", "Architectural Engineering", "Back to Menu"]
-    },
-    "The Discovery Phase": {
-        text: "Discovery is our 'Deep Dive'. We conduct market audits, stakeholder workshops, and user persona mapping to ensure we're solving the right problem.",
-        options: ["Market Audits", "User Personas", "Back to Consultancy"]
-    },
-    "Design Thinking": {
-        text: "We translate strategy into visual blueprints through low-fidelity wireframes, hi-fi interactive prototypes, and a core visual identity.",
-        options: ["UI/UX Blueprinting", "Prototyping", "Back to Consultancy"]
-    },
-    "Architectural Engineering": {
-        text: "We blueprint scalable, cloud-native architectures and implement agile development cycles with bi-weekly sprints and full transparency.",
-        options: ["System Design", "Agile Cycles", "Back to Consultancy"]
-    },
-    "Tell me about Alpha-Devs": {
-        text: "Founded by FAST alumni, Alpha-Devs has grown into a global powerhouse with 15+ specialists delivering excellence across USA, Europe, and South Asia.",
-        options: ["The Founders", "Global Reach", "Our Mission", "Back to Menu"]
-    },
-    "The Founders": {
-        text: "Alpha-Devs was born from the technical mastery of two FAST alumni who transitioned from the corporate world to build a software consultancy rooted in 'Digital Excellence'.",
-        options: ["View Portfolio", "Back to About"]
-    },
-    "Global Reach": {
-        text: "We deliver world-class digital products to over 15+ industries across borders, operating primarily in the USA, Europe, and South Asia.",
-        options: ["Industries Served", "Back to About"]
-    },
-    "How can I contact the team?": {
-        text: "Ready to start? You can reach us at info@alphadevs.com or call us at +92 300-9243063. We are based in Karachi, Pakistan.",
-        options: ["Book a Call", "Office Location", "Back to Menu"]
     },
     "Back to Menu": {
         text: "Sure! What else would you like to know?",
         options: INITIAL_MESSAGE.options!
     },
-    "Back to Products": {
-        text: "Returning to product categories. What's next?",
-        options: ["AI & ERP Solutions", "Computer Vision & SOPs", "SaaS & Survey Tools", "Ed-Tech Platforms", "Back to Menu"]
+    "☎️ Call Now": {
+        text: "Connecting you to our AI sales agent now...",
+        options: []
     },
-    "Back to Consultancy": {
-        text: "Returning to consultancy phases. Which stage would you like to explore?",
-        options: ["The Discovery Phase", "Design Thinking", "Architectural Engineering", "Back to Menu"]
-    },
-    "Back to About": {
-        text: "Returning to company info. What else can I share?",
-        options: ["The Founders", "Global Reach", "Our Mission", "Back to Menu"]
+    "📅 Schedule a Call": {
+        text: "Great! Let me redirect you to schedule a time that works best for you.",
+        options: []
     }
 };
 
 export default function ChatBot({ onClose }: ChatBotProps) {
     const [messages, setMessages] = useState<Message[]>([INITIAL_MESSAGE]);
+    const [isLoadingAgent, setIsLoadingAgent] = useState(false);
     const scrollRef = useRef<HTMLDivElement>(null);
+    const vapiRef = useRef<Vapi | null>(null);
 
     useEffect(() => {
         if (scrollRef.current) {
@@ -109,40 +72,268 @@ export default function ChatBot({ onClose }: ChatBotProps) {
         }
     }, [messages]);
 
-    const handleOptionClick = (option: string) => {
+    useEffect(() => {
+        return () => {
+            try {
+                vapiRef.current?.stop();
+            } catch {
+                /* ignore */
+            }
+        };
+    }, []);
+
+    const callSalesAgent = async (userQuestion: string): Promise<string> => {
+        try {
+            setIsLoadingAgent(true);
+            const result = await querySalesAgent(userQuestion, SALES_AGENT);
+            if (result.ok) {
+                return result.answer;
+            }
+            console.error("Sales agent error:", result.error);
+        } catch (error) {
+            console.error("Sales agent error:", error);
+        } finally {
+            setIsLoadingAgent(false);
+        }
+
+        return FALLBACK_RESPONSES["Show me your products"]?.text ||
+               "I'm having trouble connecting right now. Please reach out to our team directly.";
+    };
+
+    const handleOptionClick = async (option: string) => {
+        // Handle direct voice call
+        if (option === "☎️ Call Now") {
+            const userMsg: Message = {
+                id: Date.now().toString(),
+                sender: "user",
+                text: option
+            };
+            setMessages(prev => [...prev, userMsg]);
+            
+            // Show connecting message
+            const connectingMsg: Message = {
+                id: (Date.now() + 1).toString(),
+                sender: "bot",
+                text: "Connecting you to our AI sales agent now...",
+                isLoading: true
+            };
+            setMessages(prev => [...prev, connectingMsg]);
+
+            try {
+                const sessionResult = await createEmbedSession(SALES_AGENT);
+                if (!sessionResult.ok) {
+                    throw new Error(sessionResult.error);
+                }
+                const data = sessionResult.session;
+                const apiKey = (data.vapi_public_key || "").trim();
+                const assistantId = (data.vapi_assistant_id || "").trim();
+
+                if (!isVoiceSessionReady(data)) {
+                    const backendReason =
+                        typeof data?.message === "string" && data.message.trim().length > 0
+                            ? data.message
+                            : "Call setup is incomplete right now (missing API key or assistant).";
+                    setMessages((prev) => {
+                        const updated = [...prev];
+                        updated.pop();
+                        return [
+                            ...updated,
+                            {
+                                id: (Date.now() + 2).toString(),
+                                sender: "bot",
+                                text: `${backendReason} Please schedule a call instead.`,
+                                options: ["📅 Schedule a Call", "Back to Menu"],
+                            },
+                        ];
+                    });
+                    return;
+                }
+
+                // Use Web SDK with tenant metadata (HTML widget drops metadata → call dies)
+                if (vapiRef.current) {
+                    try {
+                        vapiRef.current.stop();
+                    } catch {
+                        /* ignore */
+                    }
+                }
+                const vapi = new Vapi(apiKey);
+                vapiRef.current = vapi;
+
+                vapi.on("call-start", () => {
+                    setMessages((prev) => {
+                        const updated = [...prev];
+                        updated.pop();
+                        return [
+                            ...updated,
+                            {
+                                id: (Date.now() + 2).toString(),
+                                sender: "bot",
+                                text: "You're connected. Speak anytime — I'm listening.",
+                                options: ["Back to Menu"],
+                            },
+                        ];
+                    });
+                });
+
+                vapi.on("call-end", () => {
+                    setMessages((prev) => [
+                        ...prev,
+                        {
+                            id: Date.now().toString(),
+                            sender: "bot",
+                            text: "Call ended. Anything else I can help with?",
+                            options: ["☎️ Call Now", "📅 Schedule a Call", "Back to Menu"],
+                        },
+                    ]);
+                });
+
+                vapi.on("error", (err: unknown) => {
+                    console.error("Vapi error:", err);
+                    setMessages((prev) => {
+                        const updated = [...prev];
+                        if (updated[updated.length - 1]?.isLoading) updated.pop();
+                        return [
+                            ...updated,
+                            {
+                                id: (Date.now() + 3).toString(),
+                                sender: "bot",
+                                text: "Voice call hit an error. Please try again or schedule a call.",
+                                options: ["☎️ Call Now", "📅 Schedule a Call", "Back to Menu"],
+                            },
+                        ];
+                    });
+                });
+
+                await vapi.start(assistantId, {
+                    metadata: buildVapiMetadata(data),
+                });
+            } catch (error) {
+                console.error("Voice call error:", error);
+                setMessages((prev) => {
+                    const updated = [...prev];
+                    updated.pop();
+                    return [
+                        ...updated,
+                        {
+                            id: (Date.now() + 2).toString(),
+                            sender: "bot",
+                            text: "Sorry, I couldn't connect the voice call. Please try again or schedule a call instead.",
+                            options: ["📅 Schedule a Call", "Back to Menu"],
+                        },
+                    ];
+                });
+            }
+            return;
+        }
+
+        // Handle schedule call option
+        if (option === "📅 Schedule a Call") {
+            const userMsg: Message = {
+                id: Date.now().toString(),
+                sender: "user",
+                text: option
+            };
+            setMessages(prev => [...prev, userMsg]);
+            
+            setTimeout(() => {
+                window.location.href = "/contact?type=booking";
+            }, 300);
+            return;
+        }
+
         // Add user message
         const userMsg: Message = {
-            // eslint-disable-next-line react-hooks/purity
             id: Date.now().toString(),
             sender: "user",
             text: option
         };
         setMessages(prev => [...prev, userMsg]);
 
-        // Mock bot response
-        setTimeout(() => {
-            if (option === "Go to Contact Page" || option === "Book a Call") {
-                window.location.href = "/contact?type=booking";
-                return;
-            }
-            if (option === "Email Support") {
-                window.location.href = "mailto:info@alphadevs.com";
-                return;
-            }
-
-            const response = KNOWLEDGE_BASE[option] || {
-                text: "I'm still learning about that! However, our team is always ready to help you directly.",
-                options: ["Go to Contact Page", "Email Support", "Back to Menu"]
-            };
-
-            const botMsg: Message = {
+        // Check if we have a fallback response for this option
+        if (FALLBACK_RESPONSES[option]) {
+            setTimeout(() => {
+                const response = FALLBACK_RESPONSES[option];
+                const botMsg: Message = {
+                    id: (Date.now() + 1).toString(),
+                    sender: "bot",
+                    text: response.text,
+                    options: response.options
+                };
+                setMessages(prev => [...prev, botMsg]);
+            }, 500);
+        } else {
+            // For other questions, call the Sales Agent API
+            const loadingMsg: Message = {
                 id: (Date.now() + 1).toString(),
                 sender: "bot",
-                text: response.text,
-                options: response.options
+                text: "Let me find that information for you...",
+                isLoading: true
             };
-            setMessages(prev => [...prev, botMsg]);
-        }, 500);
+            setMessages(prev => [...prev, loadingMsg]);
+
+            const answer = await callSalesAgent(option);
+            
+            setMessages(prev => {
+                const updated = [...prev];
+                // Remove loading message
+                updated.pop();
+                
+                const botMsg: Message = {
+                    id: (Date.now() + 2).toString(),
+                    sender: "bot",
+                    text: answer,
+                    options: [
+                        "Ask another question",
+                        "☎️ Call Now",
+                        "Back to Menu"
+                    ]
+                };
+                return [...updated, botMsg];
+            });
+        }
+    };
+
+    const handleTextInput = async (text: string) => {
+        if (!text.trim()) return;
+
+        // Add user message
+        const userMsg: Message = {
+            id: Date.now().toString(),
+            sender: "user",
+            text: text
+        };
+        setMessages(prev => [...prev, userMsg]);
+
+        // Show loading state
+        const loadingMsg: Message = {
+            id: (Date.now() + 1).toString(),
+            sender: "bot",
+            text: "Connecting to our AI agent...",
+            isLoading: true
+        };
+        setMessages(prev => [...prev, loadingMsg]);
+
+        // Call Sales Agent
+        const answer = await callSalesAgent(text);
+        
+        setMessages(prev => {
+            const updated = [...prev];
+            // Remove loading message
+            updated.pop();
+            
+            const botMsg: Message = {
+                id: (Date.now() + 2).toString(),
+                sender: "bot",
+                text: answer,
+                options: [
+                    "Ask another question",
+                    "☎️ Call Now",
+                    "Back to Menu"
+                ]
+            };
+            return [...updated, botMsg];
+        });
     };
 
     return (
@@ -154,10 +345,10 @@ export default function ChatBot({ onClose }: ChatBotProps) {
                         <Bot className="w-6 h-6" />
                     </div>
                     <div>
-                        <h3 className="text-white font-bold text-xs tracking-tight">Alpha Bot</h3>
+                        <h3 className="text-white font-bold text-xs tracking-tight">Alpha Sales Bot</h3>
                         <div className="flex items-center gap-1.5">
                             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                            <span className="text-[9px] text-gray-500 font-bold uppercase tracking-widest">Active Now</span>
+                            <span className="text-[9px] text-gray-500 font-bold uppercase tracking-widest">AI Powered</span>
                         </div>
                     </div>
                 </div>
@@ -184,15 +375,23 @@ export default function ChatBot({ onClose }: ChatBotProps) {
                                 ? "bg-white text-black font-medium"
                                 : "bg-white/[0.03] border border-white/5 text-gray-300"
                                 }`}>
-                                {msg.text}
+                                {msg.isLoading ? (
+                                    <div className="flex items-center gap-2">
+                                        <Loader className="w-4 h-4 animate-spin" />
+                                        <span>{msg.text}</span>
+                                    </div>
+                                ) : (
+                                    msg.text
+                                )}
                             </div>
                         </div>
                     </motion.div>
                 ))}
             </div>
 
-            {/* Options */}
-            <div className="p-6 pt-0">
+            {/* Options or Input */}
+            <div className="p-6 pt-0 space-y-4">
+                {/* Quick response buttons */}
                 <AnimatePresence>
                     {messages[messages.length - 1].options && (
                         <div className="flex flex-col gap-2">
@@ -203,20 +402,51 @@ export default function ChatBot({ onClose }: ChatBotProps) {
                                     animate={{ opacity: 1, x: 0 }}
                                     transition={{ delay: i * 0.1 }}
                                     onClick={() => handleOptionClick(option)}
-                                    className="w-full text-left p-4 rounded-xl bg-white/[0.05] border border-white/10 text-white text-xs font-bold hover:bg-light-blue hover:border-light-blue transition-all duration-300 flex items-center justify-between group"
+                                    disabled={isLoadingAgent}
+                                    className="w-full text-left p-4 rounded-xl bg-white/[0.05] border border-white/10 text-white text-xs font-bold hover:bg-light-blue hover:border-light-blue transition-all duration-300 flex items-center justify-between group disabled:opacity-50"
                                 >
-                                    {option}
-                                    <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                    {option.includes("☎️") ? (
+                                        <>
+                                            <span>{option}</span>
+                                            <Phone className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity animate-pulse" />
+                                        </>
+                                    ) : option.includes("📅") ? (
+                                        <>
+                                            <span>{option}</span>
+                                            <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                        </>
+                                    ) : (
+                                        <>
+                                            <span>{option}</span>
+                                            <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                        </>
+                                    )}
                                 </motion.button>
                             ))}
                         </div>
                     )}
                 </AnimatePresence>
+
+                {/* Text input for custom questions */}
+                <div className="flex gap-2">
+                    <input
+                        type="text"
+                        placeholder="Ask me anything..."
+                        onKeyPress={(e) => {
+                            if (e.key === "Enter") {
+                                handleTextInput((e.target as HTMLInputElement).value);
+                                (e.target as HTMLInputElement).value = "";
+                            }
+                        }}
+                        disabled={isLoadingAgent}
+                        className="flex-1 px-4 py-3 rounded-xl bg-white/[0.05] border border-white/10 text-white text-xs placeholder-gray-500 focus:outline-none focus:border-light-blue transition-colors disabled:opacity-50"
+                    />
+                </div>
             </div>
 
             {/* Footer */}
             <div className="p-4 text-center border-t border-white/5">
-                <p className="text-[10px] text-gray-600 font-bold uppercase tracking-widest">Driven by Alpha Intelligence</p>
+                <p className="text-[10px] text-gray-600 font-bold uppercase tracking-widest">Powered by Alpha AI Sales Agent</p>
             </div>
         </div>
     );

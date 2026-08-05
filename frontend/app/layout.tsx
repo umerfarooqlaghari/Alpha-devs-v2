@@ -1,12 +1,5 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google"; // Using Plus Jakarta Sans as it's very close to the target
 import "./globals.css";
-
-const plusJakarta = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-plus-jakarta",
-});
 
 import { getOptimizationData } from "@/lib/optimization";
 
@@ -39,7 +32,7 @@ export default async function RootLayout({
   const globalData = await getOptimizationData('*');
 
   return (
-    <html lang="en" className={plusJakarta.variable}>
+    <html lang="en">
       <head>
         {globalData?.structuredData && (
           <script
