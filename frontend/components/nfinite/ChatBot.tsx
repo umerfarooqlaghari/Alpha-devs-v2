@@ -24,8 +24,6 @@ interface ChatBotProps {
     onClose: () => void;
 }
 
-const SALES_AGENT = getSalesAgentConfigFromEnv();
-
 const INITIAL_MESSAGE: Message = {
     id: "1",
     sender: "bot",
@@ -85,7 +83,7 @@ export default function ChatBot({ onClose }: ChatBotProps) {
     const callSalesAgent = async (userQuestion: string): Promise<string> => {
         try {
             setIsLoadingAgent(true);
-            const result = await querySalesAgent(userQuestion, SALES_AGENT);
+            const result = await querySalesAgent(userQuestion, getSalesAgentConfigFromEnv());
             if (result.ok) {
                 return result.answer;
             }
@@ -120,9 +118,18 @@ export default function ChatBot({ onClose }: ChatBotProps) {
             setMessages(prev => [...prev, connectingMsg]);
 
             try {
-                const sessionResult = await createEmbedSession(SALES_AGENT);
+                const salesAgent = getSalesAgentConfigFromEnv();
+                if (!salesAgent.publishableKey) {
+                    throw new Error(
+                        "Missing NEXT_PUBLIC_SALES_AGENT_PUBLISHABLE_KEY — restart the Alpha Devs frontend after setting frontend/.env.local."
+                    );
+                }
+
+                const sessionResult = await createEmbedSession(salesAgent);
                 if (!sessionResult.ok) {
-                    throw new Error(sessionResult.error);
+                    throw new Error(
+                        `${sessionResult.error}${sessionResult.status ? ` (HTTP ${sessionResult.status})` : ""} — is SalesAgent running at ${salesAgent.baseUrl}?`
+                    );
                 }
                 const data = sessionResult.session;
                 const apiKey = (data.vapi_public_key || "").trim();
@@ -132,7 +139,7 @@ export default function ChatBot({ onClose }: ChatBotProps) {
                     const backendReason =
                         typeof data?.message === "string" && data.message.trim().length > 0
                             ? data.message
-                            : "Call setup is incomplete right now (missing API key or assistant).";
+                            : "Call setup is incomplete (missing Vapi public key or assistant id on SalesAgent).";
                     setMessages((prev) => {
                         const updated = [...prev];
                         updated.pop();
@@ -147,6 +154,18 @@ export default function ChatBot({ onClose }: ChatBotProps) {
                         ];
                     });
                     return;
+                }
+
+                // Mic permission up front — Vapi.start fails opaquely if denied
+                if (typeof navigator !== "undefined" && navigator.mediaDevices?.getUserMedia) {
+                    try {
+                        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                        stream.getTracks().forEach((t) => t.stop());
+                    } catch {
+                        throw new Error(
+                            "Microphone permission is required for voice calls. Allow mic access and try again."
+                        );
+                    }
                 }
 
                 // Use Web SDK with tenant metadata (HTML widget drops metadata → call dies)
@@ -190,6 +209,10 @@ export default function ChatBot({ onClose }: ChatBotProps) {
 
                 vapi.on("error", (err: unknown) => {
                     console.error("Vapi error:", err);
+                    const detail =
+                        err && typeof err === "object" && "message" in err
+                            ? String((err as { message?: unknown }).message || err)
+                            : String(err);
                     setMessages((prev) => {
                         const updated = [...prev];
                         if (updated[updated.length - 1]?.isLoading) updated.pop();
@@ -198,7 +221,7 @@ export default function ChatBot({ onClose }: ChatBotProps) {
                             {
                                 id: (Date.now() + 3).toString(),
                                 sender: "bot",
-                                text: "Voice call hit an error. Please try again or schedule a call.",
+                                text: `Voice call error: ${detail || "unknown"}. Please try again or schedule a call.`,
                                 options: ["☎️ Call Now", "📅 Schedule a Call", "Back to Menu"],
                             },
                         ];
@@ -210,6 +233,7 @@ export default function ChatBot({ onClose }: ChatBotProps) {
                 });
             } catch (error) {
                 console.error("Voice call error:", error);
+                const detail = error instanceof Error ? error.message : String(error);
                 setMessages((prev) => {
                     const updated = [...prev];
                     updated.pop();
@@ -218,8 +242,8 @@ export default function ChatBot({ onClose }: ChatBotProps) {
                         {
                             id: (Date.now() + 2).toString(),
                             sender: "bot",
-                            text: "Sorry, I couldn't connect the voice call. Please try again or schedule a call instead.",
-                            options: ["📅 Schedule a Call", "Back to Menu"],
+                            text: `Couldn't connect the voice call: ${detail}`,
+                            options: ["☎️ Call Now", "📅 Schedule a Call", "Back to Menu"],
                         },
                     ];
                 });
