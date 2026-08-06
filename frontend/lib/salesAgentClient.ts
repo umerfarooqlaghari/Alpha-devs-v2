@@ -43,16 +43,12 @@ function normalizeBaseUrl(url: string): string {
   return (url || "").replace(/\/$/, "");
 }
 
-export function getSalesAgentConfigFromEnv(
-  env: Record<string, string | undefined> = typeof process !== "undefined"
-    ? (process.env as Record<string, string | undefined>)
-    : {}
-): SalesAgentConfig {
+export function getSalesAgentConfigFromEnv(): SalesAgentConfig {
   return {
     baseUrl: normalizeBaseUrl(
-      env.NEXT_PUBLIC_SALES_AGENT_URL || "http://127.0.0.1:8765"
+      process.env.NEXT_PUBLIC_SALES_AGENT_URL || "http://127.0.0.1:8765"
     ),
-    publishableKey: env.NEXT_PUBLIC_SALES_AGENT_PUBLISHABLE_KEY || "",
+    publishableKey: process.env.NEXT_PUBLIC_SALES_AGENT_PUBLISHABLE_KEY || "",
   };
 }
 
