@@ -210,9 +210,11 @@ export default function ChatBot({ onClose }: ChatBotProps) {
                 vapi.on("error", (err: unknown) => {
                     console.error("Vapi error:", err);
                     const detail =
-                        err && typeof err === "object" && "message" in err
-                            ? String((err as { message?: unknown }).message || err)
-                            : String(err);
+                        err instanceof Error
+                            ? err.message
+                            : err && typeof err === "object"
+                                ? ("message" in err && (err as any).message) || JSON.stringify(err)
+                                : String(err);
                     setMessages((prev) => {
                         const updated = [...prev];
                         if (updated[updated.length - 1]?.isLoading) updated.pop();
@@ -418,7 +420,7 @@ export default function ChatBot({ onClose }: ChatBotProps) {
                 {/* Quick response buttons */}
                 <AnimatePresence>
                     {messages[messages.length - 1].options && (
-                        <div className="flex flex-col gap-2">
+                        <div className="flex flex-col gap-2 max-h-[30vh] overflow-y-auto pr-2 custom-scrollbar">
                             {messages[messages.length - 1].options?.map((option, i) => (
                                 <motion.button
                                     key={i}
