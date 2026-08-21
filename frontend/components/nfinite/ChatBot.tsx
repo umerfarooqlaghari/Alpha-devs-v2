@@ -232,6 +232,10 @@ export default function ChatBot({ onClose }: ChatBotProps) {
 
                 await vapi.start(assistantId, {
                     metadata: buildVapiMetadata(data),
+                    variableValues: {
+                        tenantId: data.tenant_id,
+                        tenant_id: data.tenant_id
+                    }
                 });
             } catch (error) {
                 console.error("Voice call error:", error);

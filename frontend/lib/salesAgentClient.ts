@@ -133,48 +133,34 @@ export async function createEmbedSession(
   }
 
   try {
-    const response = await fetchImpl(`${config.baseUrl}/api/embed/session`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${config.publishableKey}`,
-      },
-      body: JSON.stringify(body),
-    });
+    const response = await fetchImpl(
+      `${config.baseUrl}/api/widget/verify?publishableKey=${encodeURIComponent(config.publishableKey)}`,
+      {
+        method: "GET",
+      }
+    );
     const elapsedMs = performance.now() - started;
-    const data = (await response.json().catch(() => ({}))) as EmbedSession & {
-      detail?: string;
-      error?: string;
-      message?: string;
-    };
 
     if (!response.ok) {
+      const errorText = await response.text().catch(() => "");
       return {
         ok: false,
-        error: data?.detail || data?.message || data?.error || "Failed to initiate call",
+        error: errorText || `Verification failed with status: ${response.status}`,
         status: response.status,
         elapsedMs,
-        body: data,
       };
     }
 
-    // Best-effort: ensure FAQ/knowledge is hot before Vapi's first LLM turn
-    if (data.warmup?.status !== "ready") {
-      try {
-        await fetchImpl(`${config.baseUrl}/api/embed/warmup`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${config.publishableKey}`,
-          },
-          body: "{}",
-        });
-      } catch {
-        /* non-fatal */
-      }
-    }
+    const data = await response.json();
+    const session: EmbedSession = {
+      tenant_id: data.tenantId,
+      org_name: "Alpha Devs",
+      console_thread_id: "",
+      vapi_public_key: process.env.NEXT_PUBLIC_VAPI_PUBLIC_KEY || "",
+      vapi_assistant_id: process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID || "",
+    };
 
-    return { ok: true, session: data, elapsedMs: performance.now() - started };
+    return { ok: true, session, elapsedMs };
   } catch (err) {
     return {
       ok: false,
