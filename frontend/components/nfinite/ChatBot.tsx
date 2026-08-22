@@ -99,6 +99,15 @@ export default function ChatBot({ onClose }: ChatBotProps) {
     };
 
     const handleOptionClick = async (option: string) => {
+        if (option === "🛑 End Call") {
+            try {
+                vapiRef.current?.stop();
+            } catch {
+                /* ignore */
+            }
+            return;
+        }
+
         // Handle direct voice call
         if (option === "☎️ Call Now") {
             const userMsg: Message = {
@@ -189,7 +198,7 @@ export default function ChatBot({ onClose }: ChatBotProps) {
                                 id: (Date.now() + 2).toString(),
                                 sender: "bot",
                                 text: "You're connected. Speak anytime — I'm listening.",
-                                options: ["Back to Menu"],
+                                options: ["🛑 End Call", "Back to Menu"],
                             },
                         ];
                     });
