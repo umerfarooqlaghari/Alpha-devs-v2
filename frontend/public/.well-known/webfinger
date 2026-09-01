@@ -1,0 +1,28 @@
+{
+  "subject": "https://www.alpha-devs.com",
+  "aliases": [
+    "https://alpha-devs.com",
+    "https://www.alpha-devs.com"
+  ],
+  "properties": {
+    "https://schema.org/name": "Alpha-Devs",
+    "https://schema.org/description": "Global software development company specializing in enterprise solutions and AI integration",
+    "https://schema.org/email": "info@alpha-devs.com"
+  },
+  "links": [
+    {
+      "rel": "self",
+      "type": "application/jrd+json",
+      "href": "https://www.alpha-devs.com/.well-known/webfinger"
+    },
+    {
+      "rel": "http://webfinger.net/rel/profile-page",
+      "type": "text/html",
+      "href": "https://www.alpha-devs.com/about"
+    },
+    {
+      "rel": "http://webfinger.net/rel/avatar",
+      "href": "https://www.alpha-devs.com/logo.jpg"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+Contact: mailto:security@alpha-devs.com
+Preferred-Languages: en
+Canonical: https://www.alpha-devs.com/.well-known/security.txt
+Policy: https://www.alpha-devs.com/security-policy
+Hiring: https://www.alpha-devs.com/careers
+
+# Security Contact Information
+# If you discover a security vulnerability, please report it responsibly.
+# We appreciate the security research community and take all reports seriously.
+
+# Response Time
+# We aim to acknowledge security reports within 48 hours
+# and provide updates on our investigation within 5 business days.

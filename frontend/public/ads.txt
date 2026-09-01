@@ -1,0 +1,9 @@
+# ads.txt for Alpha-Devs
+# This file is used to declare authorized digital sellers
+
+# Format: domain, publisher_id, relationship_type, certification_authority_id
+# Relationship types: DIRECT, RESELLER
+
+# Add your advertising partners here
+# Example:
+# google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
